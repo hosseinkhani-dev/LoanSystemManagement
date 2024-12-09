@@ -17,7 +17,7 @@ namespace LoanManagement.Entities
         [Required]
         [StringLength(10)]
         public string PhoneNumber { get; set; }
-        [StringLength(100)]
+        [StringLength(200)]
         public string? Email { get; set; }
         [Required]
         public Role Role{ get; set; }

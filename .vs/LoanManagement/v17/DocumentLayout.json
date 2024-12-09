@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "D:\\C#\\Project\\LoanManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|solutionrelative:src\\loanmanagement.entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.migrations\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|solutionrelative:src\\loanmanagement.migrations\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.migrations\\migrations\\_202412091813_initialdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|solutionrelative:src\\loanmanagement.migrations\\migrations\\_202412091813_initialdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.entities\\loantype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|solutionrelative:src\\loanmanagement.entities\\loantype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +35,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\Customer.cs",
-              "RelativeDocumentMoniker": "src\\LoanManagement.Entities\\Customer.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\Customer.cs",
-              "RelativeToolTip": "src\\LoanManagement.Entities\\Customer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\Program.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Migrations\\Program.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\Program.cs*",
+              "RelativeToolTip": "src\\LoanManagement.Migrations\\Program.cs*",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAywEkAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-08T19:33:41.041Z",
+              "WhenOpened": "2024-12-09T15:12:23.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoanType.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\LoanType.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Entities\\LoanType.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\LoanType.cs",
+              "RelativeToolTip": "src\\LoanManagement.Entities\\LoanType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T15:02:02.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_202412091813_InitialDatabase.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "RelativeToolTip": "src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA5wBsAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T14:43:47.76Z",
               "EditorCaption": ""
             }
           ]
