@@ -13,15 +13,19 @@ namespace LoanManagement.Entities
         [Required]
         public decimal Amount { get; set; }
         [Required]
+        public decimal TotalRepaid { get; set; }
+        [Required]
         public byte RepaymentCount { get; set; }
         [Required]
         public decimal TotalLatePenalty { get; set; }
         [Required]
         public byte LatePenaltyCount { get; set; }
         [Required]
-        public bool IsRepaid { get; set; }
-        [Required]
         public bool IsFullyRepaid { get; set; }
+        [Required]
+        public bool IsRepaid { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        
 
         [ForeignKey("Loan")]
         public int LoanId { get; set; }

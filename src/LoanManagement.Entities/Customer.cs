@@ -14,8 +14,6 @@ namespace LoanManagement.Entities
         [Required]
         public bool IsActive { get; set; }
 
-        [ForeignKey("FinancialInformation")]
-        public int FinancialInformationId { get; set; }
         public FinancialInformation FinancialInformation { get; set; }
 
         public List<Loan> Loans { get; set; } = new();

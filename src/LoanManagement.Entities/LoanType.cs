@@ -20,6 +20,6 @@ namespace LoanManagement.Entities
         [Required]
         public decimal MonthlyRepayment { get; set; }
 
-        public List<Loan> MyProperty { get; set; }
+        public List<Loan> Loans { get; set; } = new();
     }
 }

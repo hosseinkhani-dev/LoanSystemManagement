@@ -8,9 +8,9 @@ namespace LoanManagement.Entities
     {
         [Key]
         public int Id { get; set; }
-        public DateTime? LoanStartDate { get; set; }
         [Required]
         public LoanState State { get; set; }
+        public DateTime? LoanStartDate { get; set; }
 
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
