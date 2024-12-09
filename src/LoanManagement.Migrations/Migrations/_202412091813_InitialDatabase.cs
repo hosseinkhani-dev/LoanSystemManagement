@@ -11,9 +11,14 @@ namespace LoanManagement.Migrations.Migrations
             .WithColumn("Id").AsInt32().PrimaryKey().Identity()
             .WithColumn("FirstName").AsString(30).NotNullable()
             .WithColumn("LastName").AsString(30).NotNullable()
+            .WithColumn("Role").AsByte().NotNullable();
+
+            Create.Table("Customers")
+            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("FirstName").AsString(30).NotNullable()
+            .WithColumn("LastName").AsString(30).NotNullable()
             .WithColumn("PhoneNumber").AsString(10).NotNullable()
             .WithColumn("Email").AsString(200).Nullable()
-            .WithColumn("Role").AsByte().NotNullable()
             .WithColumn("NationalCode").AsString(10).NotNullable()
             .WithColumn("Score").AsInt32().NotNullable()
             .WithColumn("IsActive").AsBoolean().NotNullable();
@@ -68,6 +73,7 @@ namespace LoanManagement.Migrations.Migrations
             Delete.Table("Loans");
             Delete.Table("LoanTypes");
             Delete.Table("FinancialInformation");
+            Delete.Table("Customers");
             Delete.Table("Users");
         }
     }

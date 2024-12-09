@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoanManagement.Entities\LoanManagement.Entities.csproj" />
+    <ProjectReference Include="..\LoanManagement.Infrastructures\LoanManagement.Infrastructures.csproj" />
+  </ItemGroup>
+
 </Project>
