@@ -15,11 +15,6 @@ namespace LoanManagement.Entities
         [StringLength(30)]
         public string LastName{ get; set; }
         [Required]
-        [StringLength(10)]
-        public string PhoneNumber { get; set; }
-        [StringLength(200)]
-        public string? Email { get; set; }
-        [Required]
         public Role Role{ get; set; }
     }
 
@@ -27,6 +22,5 @@ namespace LoanManagement.Entities
     {
         Admin,
         Management,
-        Customer
     }
 }

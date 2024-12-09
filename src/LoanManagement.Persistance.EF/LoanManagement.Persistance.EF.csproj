@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LoanManagement.Entities\LoanManagement.Entities.csproj" />
+    <ProjectReference Include="..\LoanManagement.Infrastructures\LoanManagement.Infrastructures.csproj" />
+    <ProjectReference Include="..\LoanManagement.Services\LoanManagement.Services.csproj" />
   </ItemGroup>
 
 </Project>
