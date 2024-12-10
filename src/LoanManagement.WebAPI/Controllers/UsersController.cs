@@ -16,9 +16,21 @@ namespace LoanManagement.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task AddAdmin([FromBody] AddAdminDto dto)
+        public async Task AddAdmin([FromBody] AddUserDto dto)
         {
             await _service.AddAdmin(dto);
+        }
+
+        [HttpPost("{id}")]
+        public async Task AddManager([FromBody] AddUserDto dto, [FromRoute] int id)
+        {
+            await _service.AddManager(dto, id);
+        }
+
+        [HttpGet]
+        public async Task<List<GetAllUsersDto>> GetAll()
+        {
+            return await _service.GetAll();
         }
     }
 }

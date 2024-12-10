@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LoanManagement.Services.Users.Contracts.DTOs
 {
-    public class AddAdminDto
+    public class AddUserDto
     {
         public string FirstName { get; set; }
         [Required]

@@ -29,7 +29,7 @@ namespace LoanManagement.Services.Tests.Unit.Users
         [Fact]
         public async Task AddAdmin_adds_user_with_role_admin_properly()
         {
-            AddAdminDto dto = CreateAddAdminDto();
+            AddUserDto dto = CreateAddAdminDto();
             await _sut.AddAdmin(dto);
 
             var user = await _context.Users.SingleAsync();
@@ -44,9 +44,9 @@ namespace LoanManagement.Services.Tests.Unit.Users
         {
             User user = await CreateAdminRoleUserInDb();
 
-            AddAdminDto dto = 
+            AddUserDto dto = 
                 CreateAdminDtoWithTheSameFirstNameLastNameAsUser(user);
-            Func<Task> expected = () => _sut.AddAdmin(dto);
+            Func<Task> expected = async () => await _sut.AddAdmin(dto);
 
             _context.Users.Should().HaveCount(1);
             await expected.Should()
@@ -54,9 +54,87 @@ namespace LoanManagement.Services.Tests.Unit.Users
                     ThisUserByAdminRoleIsAlreadyExistException>();
         }
 
-        private static AddAdminDto CreateAdminDtoWithTheSameFirstNameLastNameAsUser(User user)
+        [Fact]
+        public async Task AddManager_adds_manager_by_admin_properly()
         {
-            return new AddAdminDto
+            User adminUser = await CreateAdminRoleUserInDb();
+
+            AddUserDto dto = CreatedAddManagerDto();
+            await _sut.AddManager(dto, adminUser.Id);
+
+            _context.Users.Should().HaveCount(2);
+            var user = await _context.Users.FirstOrDefaultAsync(
+                x => x.Role == dto.Role);
+            user?.FirstName.Should().Be(dto.FirstName);
+            user?.LastName.Should().Be(dto.LastName);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public async Task AddManagerFails_When_UserForAddingManagerNotFound(
+            int fakeId)
+        {
+            AddUserDto dto = CreatedAddManagerDto();
+            Func<Task> expected = async () => 
+            await _sut.AddManager(dto, fakeId);
+
+            _context.Users.Should().HaveCount(0);
+            await expected.Should()
+                .ThrowExactlyAsync<UserForAddingManagerNotFoundException>();
+        }
+
+        [Fact]
+        public async Task AddManagerFails_When_UserForAddingManagerIsNotAdminException()
+        {
+            User user = await CreateManagerRoleUserOnDb();
+
+            AddUserDto dto = CreatedAddManagerDto();
+
+            Func<Task> expected = async () =>
+           await _sut.AddManager(dto, user.Id);
+
+            _context.Users.Should().HaveCount(1);
+            await expected.Should()
+                .ThrowExactlyAsync<UserForAddingManagerIsNotAdminException>();
+        }
+
+        [Fact]
+        public async Task GetAll_returns_all_users_properly()
+        {
+            User adminUser = await CreateAdminRoleUserInDb();
+            User managerUser = await CreateManagerRoleUserOnDb();
+
+            var expected = await _sut.GetAll();
+
+            _context.Users.Should().HaveCount(2);
+        }
+
+        private async Task<User> CreateManagerRoleUserOnDb()
+        {
+            User user = new User()
+            {
+                FirstName = "dummyFirstName",
+                LastName = "dummyLastName",
+                Role = Role.Management,
+            };
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
+        private static AddUserDto CreatedAddManagerDto()
+        {
+            return new AddUserDto
+            {
+                FirstName = "dummyFirstName",
+                LastName = "dummyLastName",
+                Role = Role.Management,
+            };
+        }
+
+        private static AddUserDto CreateAdminDtoWithTheSameFirstNameLastNameAsUser(User user)
+        {
+            return new AddUserDto
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -77,9 +155,9 @@ namespace LoanManagement.Services.Tests.Unit.Users
             return user;
         }
 
-        private static AddAdminDto CreateAddAdminDto()
+        private static AddUserDto CreateAddAdminDto()
         {
-            return new AddAdminDto
+            return new AddUserDto
             {
                 FirstName = "dummy-firstName",
                 LastName = "dummy-lastName",

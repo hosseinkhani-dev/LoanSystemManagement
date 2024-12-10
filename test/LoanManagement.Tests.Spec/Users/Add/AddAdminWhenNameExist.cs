@@ -20,7 +20,7 @@ namespace LoanManagement.Tests.Spec.Users
         private readonly UserRepository _repository;
         private readonly UnitOfWork _unitOfWork;
         private User _user;
-        private AddAdminDto _dto;
+        private AddUserDto _dto;
         Func<Task> expected;
 
         public AddAdminWhenNameExist(ConfigurationFixture configurationFixture)
@@ -87,7 +87,7 @@ namespace LoanManagement.Tests.Spec.Users
 
         private void CreateAddAdminDto()
         {
-            _dto = new AddAdminDto
+            _dto = new AddUserDto
             {
                 FirstName = "حسین",
                 LastName = "خانی",

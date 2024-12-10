@@ -19,7 +19,7 @@ namespace LoanManagement.Tests.Spec.Users.Add
         private readonly EFDbContext _context;
         private readonly UserRepository _repository;
         private readonly UnitOfWork _unitOfWork;
-        private AddAdminDto _dto;
+        private AddUserDto _dto;
 
         public AddAdmin(ConfigurationFixture configurationFixture)
             : base(configurationFixture)
@@ -63,7 +63,7 @@ namespace LoanManagement.Tests.Spec.Users.Add
 
         private void CreateAddAdminDto()
         {
-            _dto = new AddAdminDto
+            _dto = new AddUserDto
             {
                 FirstName = "حسین",
                 LastName = "خانی",
