@@ -38,13 +38,7 @@ namespace LoanManagement.Tests.Spec.Users.Add
             " نقش ادمین ثبت میکنیم")]
         private async Task When()
         {
-           _dto = new AddAdminDto
-            {
-                FirstName = "حسین",
-                LastName = "خانی",
-                Role = Role.Admin,
-            };
-
+            CreateAddAdminDto();
             await _sut.AddAdmin(_dto);
         }
 
@@ -66,5 +60,16 @@ namespace LoanManagement.Tests.Spec.Users.Add
             await When();
             await Then();
         }
+
+        private void CreateAddAdminDto()
+        {
+            _dto = new AddAdminDto
+            {
+                FirstName = "حسین",
+                LastName = "خانی",
+                Role = Role.Admin,
+            };
+        }
+
     }
 }

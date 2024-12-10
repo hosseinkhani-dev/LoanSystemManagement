@@ -1,5 +1,9 @@
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Persistance.EF;
+using LoanManagement.Persistance.EF.Users;
+using LoanManagement.Services.Users;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +19,26 @@ builder.Services.AddDbContext<EFDbContext>(options =>
 options.UseSqlServer(
     builder.Configuration
     .GetConnectionString("LoanManagementConnectionString")));
+
+//Use autofac as DI container
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterAssemblyTypes(typeof(EFUserRepository).Assembly)
+    .AssignableTo<Repository>()
+    .AsImplementedInterfaces()
+    .InstancePerLifetimeScope();
+
+    containerBuilder.RegisterAssemblyTypes(typeof(UserAppService).Assembly)
+    .AssignableTo<Service>()
+    .AsImplementedInterfaces()
+    .InstancePerLifetimeScope();
+
+    containerBuilder.RegisterType<EFUnitOfWork>()
+    .As<UnitOfWork>()
+    .InstancePerLifetimeScope();
+});
 
 
 var app = builder.Build();

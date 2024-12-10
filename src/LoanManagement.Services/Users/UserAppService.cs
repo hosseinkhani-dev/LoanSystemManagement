@@ -2,6 +2,7 @@
 using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Services.Users.Contracts;
 using LoanManagement.Services.Users.Contracts.DTOs;
+using LoanManagement.Services.Users.Exceptions;
 
 namespace LoanManagement.Services.Users
 {
@@ -19,16 +20,34 @@ namespace LoanManagement.Services.Users
 
         public async Task AddAdmin(AddAdminDto dto)
         {
-            var user = new User
+            await StopIfFirstNameAndLastNameExist(dto.FirstName, dto.LastName);
+
+            User user = CreateAdminRoleUser(dto);
+
+            await _repository.AddAdmin(user);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        private User CreateAdminRoleUser(AddAdminDto dto)
+        {
+            return new User
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Role = Role.Admin,
             };
+        }
 
-            await _repository.AddAdmin(user);
-
-            await _unitOfWork.CommitAsync();
+        private async Task StopIfFirstNameAndLastNameExist(
+            string firstName, string lastName)
+        {
+            bool isExistByName =
+                            await _repository.IsNameExist(firstName, lastName);
+            if (isExistByName)
+            {
+                throw new ThisUserByAdminRoleIsAlreadyExistException();
+            }
         }
     }
 }
