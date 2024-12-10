@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "D:\\C#\\Project\\LoanManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C28A53A-AC43-4173-8A2D-89C9FD24016F}|src\\LoanManagement.WebAPI\\LoanManagement.WebAPI.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C28A53A-AC43-4173-8A2D-89C9FD24016F}|src\\LoanManagement.WebAPI\\LoanManagement.WebAPI.csproj|solutionrelative:src\\loanmanagement.webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|d:\\c#\\project\\loanmanagement\\test\\loanmanagement.services.tests.unit\\customers\\customerservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|solutionrelative:test\\loanmanagement.services.tests.unit\\customers\\customerservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.services\\customers\\customerappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|solutionrelative:src\\loanmanagement.services\\customers\\customerappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|d:\\c#\\project\\loanmanagement\\test\\loanmanagement.services.tests.unit\\users\\userservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -18,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CustomerAppService.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\Customers\\CustomerAppService.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Services\\Customers\\CustomerAppService.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\Customers\\CustomerAppService.cs",
+              "RelativeToolTip": "src\\LoanManagement.Services\\Customers\\CustomerAppService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAvwB8AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T17:14:31.987Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -30,28 +47,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UserServiceTests.cs",
               "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Users\\UserServiceTests.cs",
               "RelativeDocumentMoniker": "test\\LoanManagement.Services.Tests.Unit\\Users\\UserServiceTests.cs",
               "ToolTip": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Users\\UserServiceTests.cs",
               "RelativeToolTip": "test\\LoanManagement.Services.Tests.Unit\\Users\\UserServiceTests.cs",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAkwGQAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T15:00:33.337Z",
+              "WhenOpened": "2024-12-10T15:19:06.018Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.WebAPI\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "src\\LoanManagement.WebAPI\\Controllers\\UsersController.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.WebAPI\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "src\\LoanManagement.WebAPI\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAgwB8AAAAJAAAAAAAAAA==",
+              "Title": "CustomerServiceTests.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Customers\\CustomerServiceTests.cs",
+              "RelativeDocumentMoniker": "test\\LoanManagement.Services.Tests.Unit\\Customers\\CustomerServiceTests.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Customers\\CustomerServiceTests.cs",
+              "RelativeToolTip": "test\\LoanManagement.Services.Tests.Unit\\Customers\\CustomerServiceTests.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAwwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T14:51:38.984Z",
+              "WhenOpened": "2024-12-10T15:18:40.679Z",
               "EditorCaption": ""
             }
           ]
