@@ -18,6 +18,12 @@ namespace LoanManagement.Persistance.EF.Customers
             await _context.Customers.AddAsync(customer);
         }
 
+        public async Task<Customer?> FindById(int id)
+        {
+            return await _context.Customers
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<bool> IsNationalCodeExist(string nationalCode)
         {
             return await _context.Customers.AnyAsync(

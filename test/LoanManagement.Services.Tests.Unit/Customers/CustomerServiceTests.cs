@@ -79,6 +79,81 @@ namespace LoanManagement.Services.Tests.Unit.Customers
                 .ThrowExactlyAsync<NationalCodeExistException>();
         }
 
+        [Fact]
+        public async Task Active_activate_the_customer_account_properly()
+        {
+            Customer customer = new Customer()
+            {
+                FirstName = "dummyFirstName",
+                LastName = "dummyLastName",
+                NationalCode = "1234567891",
+                PhoneNumber = "0917123456",
+                IsActive = false,
+                Score = 0,
+            };
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            await _sut.Activate(customer.Id);
+
+            Customer expected = await _context.Customers.SingleAsync();
+            expected.Id.Should().Be(customer.Id);
+            expected.IsActive.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public async Task ActivateFails_when_CustomerNotFoundException(
+            int dummyId)
+        {
+            Func<Task> expected = async () => await _sut.Activate(dummyId);
+
+            await expected.Should()
+                .ThrowExactlyAsync<CustomerNotFoundException>();
+        }
+
+        [Fact]
+        public async Task ActivateFails_when_NationalCodeLengthIsNotValidException()
+        {
+            Customer customer = new Customer()
+            {
+                FirstName = "dummyFirstName",
+                LastName = "dummyLastName",
+                NationalCode = "12345678912",
+                PhoneNumber = "0917123456",
+                IsActive = false,
+                Score = 0,
+            };
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            Func<Task> expected = async () => await _sut.Activate(customer.Id);
+
+            await expected.Should()
+               .ThrowExactlyAsync<NationalCodeLengthIsNotValidException>();
+        }
+
+        [Fact]
+        public async Task ActivateFails_when_PhoneNumberLenghtIsNotValidException()
+        {
+            Customer customer = new Customer()
+            {
+                FirstName = "dummyFirstName",
+                LastName = "dummyLastName",
+                NationalCode = "1234567891",
+                PhoneNumber = "091712345678",
+                IsActive = false,
+                Score = 0,
+            };
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            Func<Task> expected = async () => await _sut.Activate(customer.Id);
+
+            await expected.Should()
+               .ThrowExactlyAsync<PhoneNumberLenghtIsNotValidException>();
+        }
+
         private static AddCustomerDto CreateAddCustomerDtoWithDummyValues()
         {
             return new AddCustomerDto()

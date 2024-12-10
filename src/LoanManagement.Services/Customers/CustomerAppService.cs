@@ -48,5 +48,43 @@ namespace LoanManagement.Services.Customers
             await _repository.Add(customer);
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task Activate(int id)
+        {
+            Customer? customer = await _repository.FindById(id);
+            StopWhenCustomerNotFound(customer);
+
+            StopWhenNationalCodeLenghtIsNotValid(customer);
+
+            StopWhenPhoneNumberCodeIsNotValid(customer);
+
+            customer!.IsActive = true;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        private static void StopWhenPhoneNumberCodeIsNotValid(Customer? customer)
+        {
+            if (customer.PhoneNumber.Length != 10)
+            {
+                throw new PhoneNumberLenghtIsNotValidException();
+            }
+        }
+
+        private static void StopWhenNationalCodeLenghtIsNotValid(Customer? customer)
+        {
+            if (customer.NationalCode.Length != 10)
+            {
+                throw new NationalCodeLengthIsNotValidException();
+            }
+        }
+
+        private static void StopWhenCustomerNotFound(Customer? customer)
+        {
+            if (customer == null)
+            {
+                throw new CustomerNotFoundException();
+            }
+        }
     }
 }

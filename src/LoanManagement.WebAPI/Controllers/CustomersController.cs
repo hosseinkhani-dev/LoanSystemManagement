@@ -20,5 +20,11 @@ namespace LoanManagement.WebAPI.Controllers
         {
             await _service.Add(dto);
         }
+
+        [HttpPatch("{id}/activate")]
+        public async Task Activate(int id)
+        {
+            await _service.Activate(id);
+        }
     }
 }

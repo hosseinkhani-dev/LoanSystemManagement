@@ -5,6 +5,7 @@ namespace LoanManagement.Services.Customers.Contracts
 {
     public interface CustomerService : Service
     {
+        Task Activate(int id);
         Task Add(AddCustomerDto dto);
     }
 }
