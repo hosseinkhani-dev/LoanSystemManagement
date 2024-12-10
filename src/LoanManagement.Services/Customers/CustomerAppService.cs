@@ -56,16 +56,49 @@ namespace LoanManagement.Services.Customers
 
             StopWhenNationalCodeLenghtIsNotValid(customer);
 
-            StopWhenPhoneNumberCodeIsNotValid(customer);
+            StopWhenPhoneNumberIsNotValid(customer.PhoneNumber);
 
             customer!.IsActive = true;
 
             await _unitOfWork.CommitAsync();
         }
 
-        private static void StopWhenPhoneNumberCodeIsNotValid(Customer? customer)
+        public async Task Edit(EditCustomerDto dto, int id)
         {
-            if (customer.PhoneNumber.Length != 10)
+            Customer? customer = await _repository.FindById(id);
+            StopWhenCustomerNotFound(customer);
+
+            StopIfAnActiveCustomerWantsToChangeNationalCode(dto, customer);
+
+            StopWhenPhoneNumberIsNotValid(dto.PhoneNumber);
+
+            customer!.FirstName = dto.FirstName;
+            customer.LastName = dto.LastName;
+            customer.PhoneNumber = dto.PhoneNumber;
+            customer.NationalCode = dto.NationalCode;
+            customer.Email = dto.Email;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<List<GetAllCustomerDto>> GetAll()
+        {
+            return await _repository.GetAll();
+        }
+
+        private static void StopIfAnActiveCustomerWantsToChangeNationalCode(EditCustomerDto dto, Customer? customer)
+        {
+            if (customer!.IsActive == true &&
+                dto.NationalCode != customer.NationalCode)
+            {
+                throw new
+                    ActiveCustomerCannotChangeThierNationalCodeException();
+            }
+        }
+
+        private static void StopWhenPhoneNumberIsNotValid(string phoneNumber)
+        {
+            if (phoneNumber.Length != 10)
             {
                 throw new PhoneNumberLenghtIsNotValidException();
             }

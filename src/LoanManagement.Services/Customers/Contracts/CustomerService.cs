@@ -7,5 +7,7 @@ namespace LoanManagement.Services.Customers.Contracts
     {
         Task Activate(int id);
         Task Add(AddCustomerDto dto);
+        Task Edit(EditCustomerDto dto, int id);
+        Task<List<GetAllCustomerDto>> GetAll();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LoanManagement.Entities;
 using LoanManagement.Services.Customers.Contracts;
+using LoanManagement.Services.Customers.Contracts.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanManagement.Persistance.EF.Customers
@@ -22,6 +23,22 @@ namespace LoanManagement.Persistance.EF.Customers
         {
             return await _context.Customers
                 .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<GetAllCustomerDto>> GetAll()
+        {
+            return await _context.Customers
+                .Select(x => new GetAllCustomerDto
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    NationalCode = x.NationalCode,
+                    PhoneNumber = x.PhoneNumber,
+                    IsActive = x.IsActive,
+                    Score = x.Score,
+                    Email = x.Email
+                }).ToListAsync();
         }
 
         public async Task<bool> IsNationalCodeExist(string nationalCode)

@@ -154,6 +154,66 @@ namespace LoanManagement.Services.Tests.Unit.Customers
                .ThrowExactlyAsync<PhoneNumberLenghtIsNotValidException>();
         }
 
+        [Fact]
+        public async Task Edit_edits_the_property_of_a_customer_properly()
+        {
+            Customer customer = await CreateCustomerWithdummyValuesOnDb();
+            EditCustomerDto dto = CreateEditCustomerDto();
+            await _sut.Edit(dto, customer.Id);
+
+            Customer expected = await _context.Customers.SingleAsync();
+            expected.FirstName.Should().Be(dto.FirstName);
+            expected.LastName.Should().Be(dto.LastName);
+            expected.PhoneNumber.Should().Be(dto.PhoneNumber);
+            expected.NationalCode.Should().Be(dto.NationalCode);
+            expected.Email.Should().Be(dto.Email);
+        }
+
+        private static EditCustomerDto CreateEditCustomerDto()
+        {
+            return new EditCustomerDto
+            {
+                FirstName = "dummy-f",
+                LastName = "dummy-l",
+                NationalCode = "dummy-n",
+                PhoneNumber = "1234567891",
+                Email = "dummy_e"
+            };
+        }
+
+        [Fact]
+        public async Task EditFails_when_ActiveCustomerCannotChangeThierNationalCodeException()
+        {
+            Customer customer = new Customer()
+            {
+                FirstName = "dummyFirstName",
+                LastName = "dummyLastName",
+                NationalCode = "1234567891",
+                PhoneNumber = "0917123456",
+                IsActive = true,
+                Score = 0,
+            };
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            EditCustomerDto dto = CreateEditCustomerDto();
+            Func<Task> expected = async() => await _sut.Edit(dto, customer.Id);
+
+            await expected.Should()
+                .ThrowExactlyAsync<ActiveCustomerCannotChangeThierNationalCodeException>();
+        }
+
+        [Fact]
+        public async Task GetAll_returns_all_customers_properly()
+        {
+            Customer firstCustomer = await CreateCustomerWithdummyValuesOnDb();
+            Customer SecondCustomer = await CreateCustomerWithdummyValuesOnDb();
+
+             await _sut.GetAll();
+
+            _context.Customers.Should().HaveCount(2);
+        }
+
         private static AddCustomerDto CreateAddCustomerDtoWithDummyValues()
         {
             return new AddCustomerDto()

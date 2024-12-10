@@ -1,5 +1,6 @@
 ﻿using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
+using LoanManagement.Services.Users.Contracts.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanManagement.WebAPI.Controllers
@@ -25,6 +26,18 @@ namespace LoanManagement.WebAPI.Controllers
         public async Task Activate(int id)
         {
             await _service.Activate(id);
+        }
+
+        [HttpPatch("{id}/edit")]
+        public async Task Edit(EditCustomerDto dto, int id)
+        {
+            await _service.Edit(dto, id);
+        }
+
+        [HttpGet]
+        public async Task<List<GetAllCustomerDto>> GetAll()
+        {
+            return await _service.GetAll();
         }
     }
 }
