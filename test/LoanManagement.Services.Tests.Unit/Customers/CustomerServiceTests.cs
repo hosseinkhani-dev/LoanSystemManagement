@@ -7,7 +7,10 @@ using LoanManagement.Services.Customers;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
 using LoanManagement.Services.Customers.Exceptions;
+using LoanManagement.Services.FinancialInformations.Contracts;
+using LoanManagement.Tests.Tools;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace LoanManagement.Services.Tests.Unit.Customers
 {
@@ -17,13 +20,18 @@ namespace LoanManagement.Services.Tests.Unit.Customers
         private readonly CustomerRepository _repository;
         private readonly EFDbContext _context;
         private readonly UnitOfWork _unitOfWork;
+        private Mock<FinancialInformationRepository> mockFinancialInfoRepo;
 
         public CustomerServiceTests()
         {
             _context = new InMemoryDataBase().CreateDataContext<EFDbContext>();
             _repository = new EFCustomerRepository(_context);
             _unitOfWork = new EFUnitOfWork(_context);
-            _sut = new CustomerAppService(_repository, _unitOfWork);
+            mockFinancialInfoRepo = new Mock<FinancialInformationRepository>();
+            _sut = new CustomerAppService(
+                _repository,
+                _unitOfWork,
+                mockFinancialInfoRepo.Object);
         }
 
         [Fact]
@@ -185,7 +193,7 @@ namespace LoanManagement.Services.Tests.Unit.Customers
             await _unitOfWork.CommitAsync();
 
             EditCustomerDto dto = CreateEditCustomerDto();
-            Func<Task> expected = async() => await _sut.Edit(dto, customer.Id);
+            Func<Task> expected = async () => await _sut.Edit(dto, customer.Id);
 
             await expected.Should()
                 .ThrowExactlyAsync<ActiveCustomerCannotChangeThierNationalCodeException>();
@@ -197,9 +205,165 @@ namespace LoanManagement.Services.Tests.Unit.Customers
             Customer firstCustomer = await CreateCustomerWithdummyValuesOnDb();
             Customer SecondCustomer = await CreateCustomerWithdummyValuesOnDb();
 
-             await _sut.GetAll();
+            await _sut.GetAll();
 
             _context.Customers.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task AddFinancialInformation_updates_financial_information_of_an_customer_properly()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            AddFinancialInformationDto dto =
+                new AddFinancialInformationDto
+                {
+                    CustomerId = customer.Id,
+                    MonthlyIncome = Generator.GenerateDecimalNumber(),
+                    Job = JobType.WithoutJob,
+                };
+            await _sut.AddFinancialInformation(dto);
+
+            FinancialInformation expected =
+                await _context.FinancialInformations.SingleAsync();
+            expected.CustomerId.Should().Be(dto.CustomerId);
+            expected.MonthlyIncome.Should().Be(dto.MonthlyIncome);
+            expected.Job.Should().Be(dto.Job);
+        }
+
+        [Fact]
+        public async Task AddFinancialInformation_with_government_job_updates_customer_score_to_20()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            AddFinancialInformationDto dto =
+               new AddFinancialInformationDto
+               {
+                   CustomerId = customer.Id,
+                   MonthlyIncome = Generator.GenerateDecimalNumber(),
+                   Job = JobType.GovernmentJob,
+               };
+            await _sut.AddFinancialInformation(dto);
+
+            customer.Score.Should().Be(20);
+        }
+
+        [Fact]
+        public async Task AddFinancialInformation_with_freelance_job_updates_customer_score_to_10()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            AddFinancialInformationDto dto =
+               new AddFinancialInformationDto
+               {
+                   CustomerId = customer.Id,
+                   MonthlyIncome = Generator.GenerateDecimalNumber(),
+                   Job = JobType.FreelanceJob,
+               };
+            await _sut.AddFinancialInformation(dto);
+
+            customer.Score.Should().Be(10);
+        }
+
+        [Fact]
+        public async Task AddFinancialInformation_with_monthly_income_greater_than_10m_updates_customer_score_to_20()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            AddFinancialInformationDto dto =
+               new AddFinancialInformationDto
+               {
+                   CustomerId = customer.Id,
+                   MonthlyIncome = 11,
+                   Job = JobType.WithoutJob,
+               };
+            await _sut.AddFinancialInformation(dto);
+
+            customer.Score.Should().Be(20);
+        }
+
+        [Fact]
+        public async Task AddFinancialInformation_with_monthly_income_between_10m_and_5_customer_score_to_10()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            AddFinancialInformationDto dto =
+               new AddFinancialInformationDto
+               {
+                   CustomerId = customer.Id,
+                   MonthlyIncome = 10,
+                   Job = JobType.WithoutJob,
+               };
+            await _sut.AddFinancialInformation(dto);
+
+            customer.Score.Should().Be(10);
+        }
+
+        [Fact]
+        public async Task AddFinancialInformationFails_When_FinancialInformationIsAlreadyExistException()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+            FinancialInformation financialInformation =
+                new FinancialInformation
+                {
+                    CustomerId = customer.Id,
+                    MonthlyIncome = 10,
+                    Job = JobType.WithoutJob,
+                };
+            await _context.FinancialInformations
+                .AddAsync(financialInformation);
+            await _unitOfWork.CommitAsync();
+            mockFinancialInfoRepo.Setup(repo => repo.IsExistById(
+                financialInformation.CustomerId)).ReturnsAsync(true);
+                
+
+            AddFinancialInformationDto dto =
+             new AddFinancialInformationDto
+             {
+                 CustomerId = customer.Id,
+                 MonthlyIncome = Generator.GenerateDecimalNumber(),
+                 Job = JobType.WithoutJob,
+             };
+            Func<Task> expected = async () => 
+            await _sut.AddFinancialInformation(dto);
+
+            await expected.Should()
+                .ThrowExactlyAsync<
+                    FinancialInformationIsAlreadyExistException>();
+        }
+
+        [Fact]
+        public async Task AddFinancialInformationFails_when_CustomerIsNotActiveException()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, false);
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            AddFinancialInformationDto dto =
+            new AddFinancialInformationDto
+            {
+                CustomerId = customer.Id,
+                MonthlyIncome = Generator.GenerateDecimalNumber(),
+                Job = JobType.WithoutJob,
+            };
+            Func<Task> expected = async () =>
+            await _sut.AddFinancialInformation(dto);
+
+            await expected.Should()
+                .ThrowExactlyAsync<
+                    CustomerIsNotActiveException>();
         }
 
         private static AddCustomerDto CreateAddCustomerDtoWithDummyValues()

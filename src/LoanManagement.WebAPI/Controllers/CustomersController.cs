@@ -39,5 +39,12 @@ namespace LoanManagement.WebAPI.Controllers
         {
             return await _service.GetAll();
         }
+
+        [HttpPatch("add-financialInformation")]
+        public async Task AddFinancialInformation(
+            AddFinancialInformationDto dto)
+        {
+            await _service.AddFinancialInformation(dto);
+        }
     }
 }

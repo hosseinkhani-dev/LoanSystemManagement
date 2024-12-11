@@ -1,5 +1,4 @@
 ﻿using LoanManagement.Entities;
-using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
 
 namespace LoanManagement.Tests.Tools
 {

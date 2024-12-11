@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LoanManagement.Entities;
 
-namespace LoanManagement.Services.FinancialInformations.Contracts.DTOs
+namespace LoanManagement.Services.Customers.Contracts.DTOs
 {
     public class AddFinancialInformationDto
     {
         public decimal MonthlyIncome { get; set; }
-        [StringLength(20)]
-        public string Job { get; set; }
+        public JobType Job { get; set; }
         public int CustomerId { get; set; }
         public decimal? FinancialAssets { get; set; }
     }

@@ -7,16 +7,20 @@ namespace LoanManagement.Entities
     public class FinancialInformation
     {
         [Key]
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
         [Required]
         public decimal MonthlyIncome { get; set; }
         [Required]
-        [StringLength(20)]
-        public string Job { get; set; }
+        public JobType Job { get; set; }
         public decimal? FinancialAssets { get; set; }
-
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        
         public Customer Customer { get; set; }
+    }
+
+    public enum JobType : byte
+    {
+        GovernmentJob,
+        FreelanceJob,
+        WithoutJob
     }
 }

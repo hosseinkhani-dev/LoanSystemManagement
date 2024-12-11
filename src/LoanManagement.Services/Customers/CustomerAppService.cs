@@ -3,6 +3,7 @@ using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
 using LoanManagement.Services.Customers.Exceptions;
+using LoanManagement.Services.FinancialInformations.Contracts;
 
 namespace LoanManagement.Services.Customers
 {
@@ -10,40 +11,26 @@ namespace LoanManagement.Services.Customers
     {
         private readonly CustomerRepository _repository;
         private readonly UnitOfWork _unitOfWork;
+        private readonly FinancialInformationRepository 
+            _financialInformationRepository;
 
-        public CustomerAppService(CustomerRepository repository,
-            UnitOfWork unitOfWork)
+        public CustomerAppService(
+            CustomerRepository repository,
+            UnitOfWork unitOfWork,
+            FinancialInformationRepository financialInformationRepository)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _financialInformationRepository = financialInformationRepository;
         }
 
         public async Task Add(AddCustomerDto dto)
         {
-            bool isPhoneNumberExist = await _repository
-                .IsPhoneNumberExist(dto.PhoneNumber);
-            if (isPhoneNumberExist)
-            {
-                throw new PhoneNumberExistException();
-            }
+            await StopIfPhoneNumberExist(dto.PhoneNumber);
 
-            bool isNationalCodeExist = await _repository
-                .IsNationalCodeExist(dto.NationalCode);
-            if (isNationalCodeExist)
-            {
-                throw new NationalCodeExistException();
-            }
+            await StopIfNationalCodeExist(dto.NationalCode);
 
-            var customer = new Customer
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                PhoneNumber = dto.PhoneNumber,
-                NationalCode = dto.NationalCode,
-                IsActive = false,
-                Score = 0,
-                Email = dto.Email,
-            };
+            Customer customer = CreateCustomer(dto);
 
             await _repository.Add(customer);
             await _unitOfWork.CommitAsync();
@@ -56,7 +43,7 @@ namespace LoanManagement.Services.Customers
 
             StopWhenNationalCodeLenghtIsNotValid(customer);
 
-            StopWhenPhoneNumberIsNotValid(customer.PhoneNumber);
+            StopWhenPhoneNumberIsNotValid(customer!.PhoneNumber);
 
             customer!.IsActive = true;
 
@@ -72,11 +59,7 @@ namespace LoanManagement.Services.Customers
 
             StopWhenPhoneNumberIsNotValid(dto.PhoneNumber);
 
-            customer!.FirstName = dto.FirstName;
-            customer.LastName = dto.LastName;
-            customer.PhoneNumber = dto.PhoneNumber;
-            customer.NationalCode = dto.NationalCode;
-            customer.Email = dto.Email;
+            EditCustomer(dto, customer);
 
             await _unitOfWork.CommitAsync();
         }
@@ -86,7 +69,93 @@ namespace LoanManagement.Services.Customers
             return await _repository.GetAll();
         }
 
-        private static void StopIfAnActiveCustomerWantsToChangeNationalCode(EditCustomerDto dto, Customer? customer)
+        public async Task AddFinancialInformation(
+            AddFinancialInformationDto dto)
+        {
+            Customer? customer = await _repository.FindById(dto.CustomerId);
+            StopWhenCustomerNotFound(customer);
+
+            StopIfCustomerIsNotActive(customer.IsActive);
+
+            await StopIfFinancialInformationExist(customer!.Id);
+
+            CreateFinancialInformation(dto, customer!);
+
+            customer!.Score += CalculateCustomerScore(
+                dto.Job, dto.MonthlyIncome);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        private static void StopIfCustomerIsNotActive(bool isActive)
+        {
+            if (!isActive)
+            {
+                throw new CustomerIsNotActiveException();
+            }
+        }
+
+        private static Customer CreateCustomer(AddCustomerDto dto)
+        {
+            return new Customer
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
+                NationalCode = dto.NationalCode,
+                IsActive = false,
+                Score = 0,
+                Email = dto.Email,
+            };
+        }
+
+        private static void CreateFinancialInformation(
+            AddFinancialInformationDto dto, Customer customer)
+        {
+            customer!.FinancialInformation = new FinancialInformation
+            {
+                CustomerId = dto.CustomerId,
+                MonthlyIncome = dto.MonthlyIncome,
+                Job = dto.Job,
+                FinancialAssets = dto.FinancialAssets,
+            };
+        }
+
+        private static void EditCustomer(
+            EditCustomerDto dto, Customer? customer)
+        {
+            customer!.FirstName = dto.FirstName;
+            customer.LastName = dto.LastName;
+            customer.PhoneNumber = dto.PhoneNumber;
+            customer.NationalCode = dto.NationalCode;
+            customer.Email = dto.Email;
+        }
+
+        private static int CalculateCustomerScore(
+            JobType job, decimal monthlyIncome)
+        {
+            int score = 0;
+            if (job == JobType.GovernmentJob)
+            {
+                score += 20;
+            }
+            if (job == JobType.FreelanceJob)
+            {
+                score += 10;
+            }
+            if (monthlyIncome > 10)
+            {
+                score += 20;
+            }
+            if (monthlyIncome < 11 && monthlyIncome > 6)
+            {
+                score += 10;
+            }
+            return score;
+        }
+
+        private static void StopIfAnActiveCustomerWantsToChangeNationalCode(
+            EditCustomerDto dto, Customer? customer)
         {
             if (customer!.IsActive == true &&
                 dto.NationalCode != customer.NationalCode)
@@ -104,7 +173,8 @@ namespace LoanManagement.Services.Customers
             }
         }
 
-        private static void StopWhenNationalCodeLenghtIsNotValid(Customer? customer)
+        private static void StopWhenNationalCodeLenghtIsNotValid(
+            Customer? customer)
         {
             if (customer.NationalCode.Length != 10)
             {
@@ -117,6 +187,37 @@ namespace LoanManagement.Services.Customers
             if (customer == null)
             {
                 throw new CustomerNotFoundException();
+            }
+        }
+
+        private async Task StopIfPhoneNumberExist(string phoneNumber)
+        {
+            bool isPhoneNumberExist = await _repository
+                            .IsPhoneNumberExist(phoneNumber);
+            if (isPhoneNumberExist)
+            {
+                throw new PhoneNumberExistException();
+            }
+        }
+
+        private async Task StopIfNationalCodeExist(string nationalCode)
+        {
+            bool isNationalCodeExist = await _repository
+                .IsNationalCodeExist(nationalCode);
+            if (isNationalCodeExist)
+            {
+                throw new NationalCodeExistException();
+            }
+        }
+
+        private async Task StopIfFinancialInformationExist(int id)
+        {
+            bool isExist =
+                            await _financialInformationRepository.
+                            IsExistById(id);
+            if (isExist)
+            {
+                throw new FinancialInformationIsAlreadyExistException();
             }
         }
     }

@@ -24,13 +24,12 @@ namespace LoanManagement.Migrations.Migrations
             .WithColumn("IsActive").AsBoolean().NotNullable();
 
             Create.Table("FinancialInformations")
-            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-            .WithColumn("MonthlyIncome").AsDecimal().NotNullable()
-            .WithColumn("Job").AsString(20).NotNullable()
-            .WithColumn("FinancialAssets").AsDecimal().Nullable()
-            .WithColumn("CustomerId").AsInt32().NotNullable()
+            .WithColumn("CustomerId").AsInt32().PrimaryKey()
             .ForeignKey("FK_FinancialInformations_Customers", "Customers", "Id")
-            .OnDeleteOrUpdate(System.Data.Rule.Cascade).Unique();
+            .OnDeleteOrUpdate(System.Data.Rule.Cascade).Unique()
+            .WithColumn("MonthlyIncome").AsDecimal().NotNullable()
+            .WithColumn("Job").AsByte().NotNullable()
+            .WithColumn("FinancialAssets").AsDecimal().Nullable();
 
             Create.Table("LoanTypes")
             .WithColumn("Id").AsInt32().PrimaryKey().Identity()
