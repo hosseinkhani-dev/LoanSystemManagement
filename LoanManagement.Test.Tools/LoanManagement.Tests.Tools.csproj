@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LoanManagement.Entities\LoanManagement.Entities.csproj" />
-    <ProjectReference Include="..\LoanManagement.Infrastructures\LoanManagement.Infrastructures.csproj" />
+    <PackageReference Include="Bogus" Version="35.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FinancialInformations\Exceptions\" />
+    <ProjectReference Include="..\src\LoanManagement.Entities\LoanManagement.Entities.csproj" />
+    <ProjectReference Include="..\src\LoanManagement.Services\LoanManagement.Services.csproj" />
   </ItemGroup>
 
 </Project>

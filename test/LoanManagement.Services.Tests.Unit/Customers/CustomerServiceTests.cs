@@ -169,18 +169,6 @@ namespace LoanManagement.Services.Tests.Unit.Customers
             expected.Email.Should().Be(dto.Email);
         }
 
-        private static EditCustomerDto CreateEditCustomerDto()
-        {
-            return new EditCustomerDto
-            {
-                FirstName = "dummy-f",
-                LastName = "dummy-l",
-                NationalCode = "dummy-n",
-                PhoneNumber = "1234567891",
-                Email = "dummy_e"
-            };
-        }
-
         [Fact]
         public async Task EditFails_when_ActiveCustomerCannotChangeThierNationalCodeException()
         {
@@ -239,6 +227,18 @@ namespace LoanManagement.Services.Tests.Unit.Customers
             await _context.Customers.AddAsync(customer);
             await _unitOfWork.CommitAsync();
             return customer;
+        }
+
+        private static EditCustomerDto CreateEditCustomerDto()
+        {
+            return new EditCustomerDto
+            {
+                FirstName = "dummy-f",
+                LastName = "dummy-l",
+                NationalCode = "dummy-n",
+                PhoneNumber = "1234567891",
+                Email = "dummy_e"
+            };
         }
     }
 }
