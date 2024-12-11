@@ -6,5 +6,6 @@ namespace LoanManagement.Services.FinancialInformations.Contracts
     public interface FinancialInformationService : Service
     {
         Task Add(AddFinancialInformationDto dto);
+        Task<GetFinancialInformationDto?> GetByCustomer(int customerId);
     }
 }

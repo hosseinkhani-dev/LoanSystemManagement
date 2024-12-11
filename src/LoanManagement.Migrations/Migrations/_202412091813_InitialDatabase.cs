@@ -23,13 +23,13 @@ namespace LoanManagement.Migrations.Migrations
             .WithColumn("Score").AsInt32().NotNullable()
             .WithColumn("IsActive").AsBoolean().NotNullable();
 
-            Create.Table("FinancialInformation")
+            Create.Table("FinancialInformations")
             .WithColumn("Id").AsInt32().PrimaryKey().Identity()
             .WithColumn("MonthlyIncome").AsDecimal().NotNullable()
             .WithColumn("Job").AsString(20).NotNullable()
             .WithColumn("FinancialAssets").AsDecimal().Nullable()
             .WithColumn("CustomerId").AsInt32().NotNullable()
-            .ForeignKey("FK_FinancialInformation_Customers", "Users", "Id")
+            .ForeignKey("FK_FinancialInformations_Customers", "Customers", "Id")
             .OnDeleteOrUpdate(System.Data.Rule.Cascade).Unique();
 
             Create.Table("LoanTypes")
@@ -45,7 +45,7 @@ namespace LoanManagement.Migrations.Migrations
             .WithColumn("State").AsByte().NotNullable()
             .WithColumn("LoanStartDate").AsDateTime().Nullable()
             .WithColumn("CustomerId").AsInt32().NotNullable()
-            .ForeignKey("FK_Loans_Customers", "Users", "Id")
+            .ForeignKey("FK_Loans_Customers", "Customers", "Id")
             .OnDelete(System.Data.Rule.Cascade)
             .WithColumn("LoanTypeId").AsInt32().NotNullable()
             .ForeignKey("FK_Loans_LoanTypes", "LoanTypes", "Id")
@@ -72,7 +72,7 @@ namespace LoanManagement.Migrations.Migrations
             Delete.Table("Repayments");
             Delete.Table("Loans");
             Delete.Table("LoanTypes");
-            Delete.Table("FinancialInformation");
+            Delete.Table("FinancialInformations");
             Delete.Table("Customers");
             Delete.Table("Users");
         }

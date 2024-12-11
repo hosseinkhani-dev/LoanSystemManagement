@@ -74,5 +74,34 @@ namespace LoanManagement.Services.Tests.Unit.FinancialInformations
             await expected.Should()
                 .ThrowExactlyAsync<CustomerNotFoundException>();
         }
+
+        [Fact]
+        public async Task GetByCustomer_returns_financial_information_of_an_customer()
+        {
+            Customer customer = CustomerFactory.CreateCustomer();
+            await _context.Customers.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+            mockCustomerRepository.Setup(repo => repo.FindById(customer.Id))
+               .ReturnsAsync(customer);
+
+            FinancialInformation financialInformation =
+                new FinancialInformation
+                {
+                    MonthlyIncome = Generator.GenerateDecimalNumber(),
+                    Job = "aaa",
+                    CustomerId = customer.Id,
+                };
+            await _context.FinancialInformations.
+                AddAsync(financialInformation);
+            await _unitOfWork.CommitAsync();
+
+            var expected = await _sut.GetByCustomer(customer.Id);
+
+            expected!.Id.Should().Be(financialInformation.Id);
+            expected.MonthlyIncome.Should().
+                Be(financialInformation.MonthlyIncome);
+            expected.Job.Should().Be(financialInformation.Job);
+          
+        }
     }
 }

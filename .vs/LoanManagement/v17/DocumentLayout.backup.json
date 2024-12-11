@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "D:\\C#\\Project\\LoanManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|d:\\c#\\project\\loanmanagement\\test\\loanmanagement.services.tests.unit\\financialinformations\\financialinformationservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|solutionrelative:test\\loanmanagement.services.tests.unit\\financialinformations\\financialinformationservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.migrations\\migrations\\_202412091813_initialdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|solutionrelative:src\\loanmanagement.migrations\\migrations\\_202412091813_initialdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C28A53A-AC43-4173-8A2D-89C9FD24016F}|src\\LoanManagement.WebAPI\\LoanManagement.WebAPI.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.webapi\\controllers\\financialinformationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C28A53A-AC43-4173-8A2D-89C9FD24016F}|src\\LoanManagement.WebAPI\\LoanManagement.WebAPI.csproj|solutionrelative:src\\loanmanagement.webapi\\controllers\\financialinformationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.migrations\\migrations.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{01255D20-6C3D-4C20-9645-BC3C89C0CE69}|src\\LoanManagement.Migrations\\LoanManagement.Migrations.csproj|solutionrelative:src\\loanmanagement.migrations\\migrations.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC97C96-895A-44FF-BAAF-831BACDBF210}|src\\LoanManagement.Persistance.EF\\LoanManagement.Persistance.EF.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.persistance.ef\\financialinformations\\financialinformationentitymap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC97C96-895A-44FF-BAAF-831BACDBF210}|src\\LoanManagement.Persistance.EF\\LoanManagement.Persistance.EF.csproj|solutionrelative:src\\loanmanagement.persistance.ef\\financialinformations\\financialinformationentitymap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.entities\\financialinformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|solutionrelative:src\\loanmanagement.entities\\financialinformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.services\\financialinformations\\financialinformationappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|solutionrelative:src\\loanmanagement.services\\financialinformations\\financialinformationappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC97C96-895A-44FF-BAAF-831BACDBF210}|src\\LoanManagement.Persistance.EF\\LoanManagement.Persistance.EF.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.persistance.ef\\customers\\efcustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC97C96-895A-44FF-BAAF-831BACDBF210}|src\\LoanManagement.Persistance.EF\\LoanManagement.Persistance.EF.csproj|solutionrelative:src\\loanmanagement.persistance.ef\\customers\\efcustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,21 +38,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FinancialInformationAppService.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
-              "RelativeDocumentMoniker": "src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
-              "RelativeToolTip": "src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAkwCgAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T08:52:34.145Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -44,14 +51,92 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FinancialInformationServiceTests.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\FinancialInformations\\FinancialInformationServiceTests.cs",
-              "RelativeDocumentMoniker": "test\\LoanManagement.Services.Tests.Unit\\FinancialInformations\\FinancialInformationServiceTests.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\FinancialInformations\\FinancialInformationServiceTests.cs",
-              "RelativeToolTip": "test\\LoanManagement.Services.Tests.Unit\\FinancialInformations\\FinancialInformationServiceTests.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAuwDwAAAAOAAAAAAAAAA==",
+              "Title": "_202412091813_InitialDatabase.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "RelativeToolTip": "src\\LoanManagement.Migrations\\Migrations\\_202412091813_InitialDatabase.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAkwC8AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T08:05:46.264Z",
+              "WhenOpened": "2024-12-11T13:19:27.564Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "migrations.json",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\migrations.json",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Migrations\\migrations.json",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Migrations\\migrations.json",
+              "RelativeToolTip": "src\\LoanManagement.Migrations\\migrations.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-11T13:17:18.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FinancialInformationEntityMap.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Persistance.EF\\FinancialInformations\\FinancialInformationEntityMap.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Persistance.EF\\FinancialInformations\\FinancialInformationEntityMap.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Persistance.EF\\FinancialInformations\\FinancialInformationEntityMap.cs",
+              "RelativeToolTip": "src\\LoanManagement.Persistance.EF\\FinancialInformations\\FinancialInformationEntityMap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T13:17:02.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FinancialInformation.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\FinancialInformation.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Entities\\FinancialInformation.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\FinancialInformation.cs",
+              "RelativeToolTip": "src\\LoanManagement.Entities\\FinancialInformation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T13:16:52.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FinancialInformationAppService.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
+              "RelativeToolTip": "src\\LoanManagement.Services\\FinancialInformations\\FinancialInformationAppService.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAywCsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T13:12:03.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EFCustomerRepository.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Persistance.EF\\Customers\\EFCustomerRepository.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Persistance.EF\\Customers\\EFCustomerRepository.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Persistance.EF\\Customers\\EFCustomerRepository.cs",
+              "RelativeToolTip": "src\\LoanManagement.Persistance.EF\\Customers\\EFCustomerRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T13:11:22.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FinancialInformationsController.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.WebAPI\\Controllers\\FinancialInformationsController.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.WebAPI\\Controllers\\FinancialInformationsController.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.WebAPI\\Controllers\\FinancialInformationsController.cs",
+              "RelativeToolTip": "src\\LoanManagement.WebAPI\\Controllers\\FinancialInformationsController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAIwBUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T13:03:35.479Z",
               "EditorCaption": ""
             }
           ]

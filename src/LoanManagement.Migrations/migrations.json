@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "LoanManagementConnectionString": "Server=localhost;Database=LoanManagementTest;Trusted_Connection=True;TrustServerCertificate=True;"
+    "LoanManagementConnectionString": "Server=localhost;Database=LoanManagement;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 }

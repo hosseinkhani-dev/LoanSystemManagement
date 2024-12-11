@@ -38,11 +38,16 @@ namespace LoanManagement.Services.FinancialInformations
                 Job = dto.Job,
                 FinancialAssets = dto.FinancialAssets,
                 CustomerId = dto.CustomerId,
-                Customer = customer,
             };
 
             await _repository.Add(financialInformation);
             await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<GetFinancialInformationDto?> GetByCustomer(
+            int customerId)
+        {
+            return await _repository.GetByCustomer(customerId);
         }
     }
 }

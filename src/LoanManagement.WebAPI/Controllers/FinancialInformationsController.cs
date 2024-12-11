@@ -21,5 +21,12 @@ namespace LoanManagement.WebAPI.Controllers
         {
             await _service.Add(dto);
         }
+
+        [HttpGet("{customerId}")]
+        public async Task<GetFinancialInformationDto?> GetByCustomer(
+            int customerId)
+        {
+            return await _service.GetByCustomer(customerId);
+        }
     }
 }
