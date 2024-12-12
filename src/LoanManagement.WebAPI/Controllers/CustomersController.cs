@@ -1,5 +1,6 @@
 ﻿using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
+using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
 using LoanManagement.Services.Users.Contracts.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,13 +39,6 @@ namespace LoanManagement.WebAPI.Controllers
         public async Task<List<GetAllCustomerDto>> GetAll()
         {
             return await _service.GetAll();
-        }
-
-        [HttpPatch("add-financialInformation")]
-        public async Task AddFinancialInformation(
-            AddFinancialInformationDto dto)
-        {
-            await _service.AddFinancialInformation(dto);
         }
     }
 }

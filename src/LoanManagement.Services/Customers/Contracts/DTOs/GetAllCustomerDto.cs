@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace LoanManagement.Services.Customers.Contracts.DTOs
 {
@@ -12,5 +13,7 @@ namespace LoanManagement.Services.Customers.Contracts.DTOs
         public string? Email { get; set; }
         public int Score { get; set; }
         public bool IsActive { get; set; }
+        public GetFinancialInformationDto? GetFinancialInformationDto
+        { get; set; } = new();
     }
 }

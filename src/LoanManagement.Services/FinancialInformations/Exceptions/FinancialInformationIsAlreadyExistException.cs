@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanManagement.Services.Customers.Exceptions
+namespace LoanManagement.Services.FinancialInformations.Exceptions
 {
     public class FinancialInformationIsAlreadyExistException : Exception
     {

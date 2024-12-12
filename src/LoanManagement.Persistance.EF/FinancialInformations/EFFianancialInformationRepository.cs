@@ -1,4 +1,5 @@
-﻿using LoanManagement.Services.FinancialInformations.Contracts;
+﻿using LoanManagement.Entities;
+using LoanManagement.Services.FinancialInformations.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanManagement.Persistance.EF.FinancialInformations
@@ -11,6 +12,18 @@ namespace LoanManagement.Persistance.EF.FinancialInformations
         public EFFianancialInformationRepository(EFDbContext context)
         {
             _context = context;
+        }
+
+        public async Task Add(FinancialInformation financialInformation)
+        {
+            await _context.FinancialInformations.
+                AddAsync(financialInformation);
+        }
+
+        public async Task<FinancialInformation?> FindById(int customerId)
+        {
+            return await _context.FinancialInformations
+                .FirstOrDefaultAsync(x => x.CustomerId == customerId);
         }
 
         public async Task<bool> IsExistById(int id)

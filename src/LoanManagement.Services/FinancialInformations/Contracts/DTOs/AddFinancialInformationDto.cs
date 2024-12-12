@@ -1,6 +1,6 @@
 ﻿using LoanManagement.Entities;
 
-namespace LoanManagement.Services.Customers.Contracts.DTOs
+namespace LoanManagement.Services.FinancialInformations.Contracts.DTOs
 {
     public class AddFinancialInformationDto
     {

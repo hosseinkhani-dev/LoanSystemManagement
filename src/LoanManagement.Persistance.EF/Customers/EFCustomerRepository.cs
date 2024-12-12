@@ -1,6 +1,7 @@
 ﻿using LoanManagement.Entities;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
+using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanManagement.Persistance.EF.Customers
@@ -37,7 +38,17 @@ namespace LoanManagement.Persistance.EF.Customers
                     PhoneNumber = x.PhoneNumber,
                     IsActive = x.IsActive,
                     Score = x.Score,
-                    Email = x.Email
+                    Email = x.Email,
+                    GetFinancialInformationDto =
+                        x.FinancialInformation == null ?
+                        null : new GetFinancialInformationDto
+                        {
+                            MonthlyIncome = x.FinancialInformation.
+                            MonthlyIncome,
+                            Job = x.FinancialInformation.Job.ToString(),
+                            FinancialAssets =
+                        x.FinancialInformation.FinancialAssets,
+                        }
                 }).ToListAsync();
         }
 

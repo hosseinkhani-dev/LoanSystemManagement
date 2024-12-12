@@ -4,6 +4,8 @@ using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
 using LoanManagement.Services.Customers.Exceptions;
 using LoanManagement.Services.FinancialInformations.Contracts;
+using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
+using LoanManagement.Services.FinancialInformations.Exceptions;
 
 namespace LoanManagement.Services.Customers
 {
@@ -75,7 +77,7 @@ namespace LoanManagement.Services.Customers
             Customer? customer = await _repository.FindById(dto.CustomerId);
             StopWhenCustomerNotFound(customer);
 
-            StopIfCustomerIsNotActive(customer.IsActive);
+            StopIfCustomerIsNotActive(customer!.IsActive);
 
             await StopIfFinancialInformationExist(customer!.Id);
 
@@ -86,6 +88,37 @@ namespace LoanManagement.Services.Customers
 
             await _unitOfWork.CommitAsync();
         }
+
+        //public async Task EditFinancialInformation(
+        //    EditFinancialInformationDto dto, int customerId)
+        //{
+        //    Customer? customer = await _repository.FindById(customerId);
+        //    StopWhenCustomerNotFound(customer);
+
+        //    bool isExist = 
+        //        await _financialInformationRepository.IsExistById(customerId);
+        //    if(!isExist)
+        //    {
+        //        throw new
+        //            ThereIsNoFinancialInformationForTheCustomerException();
+        //    }
+
+        //    customer!.FinancialInformation.MonthlyIncome = dto.MonthlyIncome;
+        //    customer.FinancialInformation.Job = dto.Job;
+        //    customer.FinancialInformation.FinancialAssets = 
+        //        dto.FinancialAssets;
+
+        //     if(
+        //        customer.FinancialInformation.MonthlyIncome >
+        //        dto.MonthlyIncome && 
+        //        dto.MonthlyIncome < 11 && 
+        //        dto.MonthlyIncome > 5)
+        //    {
+        //        customer.Score -= 10;
+        //    }
+
+        //    await _unitOfWork.CommitAsync();
+        //}
 
         private static void StopIfCustomerIsNotActive(bool isActive)
         {
