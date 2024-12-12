@@ -44,7 +44,7 @@ namespace LoanManagement.Services.Tests.Unit.FinancialInformations
             AddFinancialInformationDto dto =
                   FinancialInformationFactory.CreateAddDto(
                       customer.Id,
-                      Generator.GenerateDecimalNumber(),
+                      Generator.GenerateDecimal(),
                       JobType.FreelanceJob);
             await _sut.Add(dto);
 
@@ -65,7 +65,7 @@ namespace LoanManagement.Services.Tests.Unit.FinancialInformations
             AddFinancialInformationDto dto =
                   FinancialInformationFactory.CreateAddDto(
                       customer.Id,
-                      Generator.GenerateDecimalNumber(),
+                      Generator.GenerateDecimal(),
                       JobType.GovernmentJob);
             await _sut.Add(dto);
 
@@ -82,7 +82,7 @@ namespace LoanManagement.Services.Tests.Unit.FinancialInformations
             AddFinancialInformationDto dto =
                   FinancialInformationFactory.CreateAddDto(
                       customer.Id,
-                      Generator.GenerateDecimalNumber(),
+                      Generator.GenerateDecimal(),
                       JobType.FreelanceJob);
             await _sut.Add(dto);
 
@@ -135,7 +135,7 @@ namespace LoanManagement.Services.Tests.Unit.FinancialInformations
             AddFinancialInformationDto dto =
                 FinancialInformationFactory.CreateAddDto(
                     customer.Id,
-                    Generator.GenerateDecimalNumber(),
+                    Generator.GenerateDecimal(),
                     JobType.WithoutJob);
             Func<Task> expected = async () =>
             await _sut.Add(dto);
@@ -155,7 +155,7 @@ namespace LoanManagement.Services.Tests.Unit.FinancialInformations
             AddFinancialInformationDto dto =
                  FinancialInformationFactory.CreateAddDto(
                      customer.Id,
-                     Generator.GenerateDecimalNumber(),
+                     Generator.GenerateDecimal(),
                      JobType.WithoutJob);
             Func<Task> expected = async () =>
             await _sut.Add(dto);
