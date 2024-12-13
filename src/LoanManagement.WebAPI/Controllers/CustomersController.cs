@@ -29,7 +29,7 @@ namespace LoanManagement.WebAPI.Controllers
             await _service.Activate(id);
         }
 
-        [HttpPatch("{id}/edit")]
+        [HttpPut("{id}/edit")]
         public async Task Edit(EditCustomerDto dto, int id)
         {
             await _service.Edit(dto, id);

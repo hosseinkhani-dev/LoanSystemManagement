@@ -23,7 +23,8 @@ namespace LoanManagement.Persistance.EF.Loans
         {
             return await _context.Loans.
                 Include(x => x.Customer).
-                Include(x => x.LoanType)
+                Include(x => x.LoanType).
+                Include(x => x.Repayments)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 

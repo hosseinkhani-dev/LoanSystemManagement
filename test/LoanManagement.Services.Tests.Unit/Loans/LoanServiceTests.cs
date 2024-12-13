@@ -6,6 +6,7 @@ using LoanManagement.Persistance.EF.Customers;
 using LoanManagement.Persistance.EF.FinancialInformations;
 using LoanManagement.Persistance.EF.Loans;
 using LoanManagement.Persistance.EF.LoanTypes;
+using LoanManagement.Persistance.EF.Repayments;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Exceptions;
 using LoanManagement.Services.FinancialInformations.Contracts;
@@ -14,6 +15,7 @@ using LoanManagement.Services.Loans.Contracts;
 using LoanManagement.Services.Loans.Contracts.DTOs;
 using LoanManagement.Services.LoanTypes.Contracts;
 using LoanManagement.Services.LoanTypes.Exceptions;
+using LoanManagement.Services.Repayments.Contracts;
 using LoanManagement.Tests.Tools;
 using Microsoft.EntityFrameworkCore;
 
@@ -241,5 +243,7 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             customer.Score.Should().Be(10);
             state.Should().Be(LoanState.Rejected.ToString());
         }
+
+        
     }
 }

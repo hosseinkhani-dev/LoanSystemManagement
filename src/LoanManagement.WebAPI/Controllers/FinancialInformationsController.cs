@@ -22,7 +22,7 @@ namespace LoanManagement.WebAPI.Controllers
             await _service.Add(dto);
         }
 
-        [HttpPatch("{customerId}")]
+        [HttpPut("{customerId}")]
         public async Task Edit(EditFinancialInformationDto dto, int customerId)
         {
             await _service.Edit(dto, customerId);

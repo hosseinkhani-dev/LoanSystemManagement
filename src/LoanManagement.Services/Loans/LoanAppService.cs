@@ -69,7 +69,7 @@ namespace LoanManagement.Services.Loans
             {
                 throw new CustomerNotFoundException();
             }
-            if(loan.State == LoanState.UnderReview ||
+            if (loan.State == LoanState.UnderReview ||
                 loan.State == LoanState.Rejected)
             {
                 FinancialInformation? financialInformation =
@@ -112,7 +112,7 @@ namespace LoanManagement.Services.Loans
         private static int CahngeScoreBasedOnLoanToAssetRatio(
             int score, decimal loanAmount, decimal asset)
         {
-           
+
 
             if (loanAmount < 0.5m * asset)
             {
@@ -123,7 +123,7 @@ namespace LoanManagement.Services.Loans
             {
                 score += 10;
             }
-            
+
             return score;
         }
 
@@ -150,5 +150,7 @@ namespace LoanManagement.Services.Loans
                 throw new CustomerNotFoundException();
             }
         }
+
+
     }
 }
