@@ -18,6 +18,18 @@ namespace LoanManagement.Tests.Tools
             };
         }
 
+        public static FinancialInformation CreateWithAsset(
+            int customerId, decimal asset)
+        {
+            return new FinancialInformation
+            {
+                CustomerId = customerId,
+                FinancialAssets = asset,
+                MonthlyIncome = 1,
+                Job = JobType.WithoutJob
+            };
+        }
+
         public static AddFinancialInformationDto CreateAddDto(
             int customerId,
             decimal monthlyIncome,

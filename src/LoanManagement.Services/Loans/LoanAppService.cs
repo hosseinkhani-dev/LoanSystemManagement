@@ -2,8 +2,10 @@
 using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Exceptions;
+using LoanManagement.Services.FinancialInformations.Contracts;
 using LoanManagement.Services.Loans.Contracts;
 using LoanManagement.Services.Loans.Contracts.DTOs;
+using LoanManagement.Services.Loans.Exceptions;
 using LoanManagement.Services.LoanTypes.Contracts;
 using LoanManagement.Services.LoanTypes.Exceptions;
 
@@ -15,17 +17,21 @@ namespace LoanManagement.Services.Loans
         private readonly UnitOfWork _unitOfWork;
         private readonly CustomerRepository _customerRepository;
         private readonly LoanTypeRepository _loanTypeRepository;
+        private readonly FinancialInformationRepository
+            _financialInformationRepository;
 
         public LoanAppService(
             LoanRepository repository,
             UnitOfWork unitOfWork,
             CustomerRepository customerRepository,
-            LoanTypeRepository loanTypeRepository)
+            LoanTypeRepository loanTypeRepository,
+            FinancialInformationRepository financialInformationRepository)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _customerRepository = customerRepository;
             _loanTypeRepository = loanTypeRepository;
+            _financialInformationRepository = financialInformationRepository;
         }
 
         public async Task Add(AddLoanDto dto)
@@ -53,6 +59,80 @@ namespace LoanManagement.Services.Loans
         public async Task<List<GetAllLoanDto?>> GetAll()
         {
             return await _repository.GetAll();
+        }
+
+        public async Task<string> LoanCheck(int id)
+        {
+            Loan? loan = await _repository.FindById(id);
+            StopIfLoanNotFound(loan);
+            if (loan!.Customer == null)
+            {
+                throw new CustomerNotFoundException();
+            }
+            if(loan.State == LoanState.UnderReview ||
+                loan.State == LoanState.Rejected)
+            {
+                FinancialInformation? financialInformation =
+               await _financialInformationRepository.
+               FindById(loan!.CustomerId);
+
+                int scoreBeforeChange = loan.Customer.Score;
+                int score = loan.Customer.Score;
+
+                if (financialInformation?.FinancialAssets != null)
+                {
+                    score = CahngeScoreBasedOnLoanToAssetRatio(
+                        loan.Customer.Score,
+                        loan.LoanType.Amount,
+                        financialInformation.FinancialAssets ?? 0);
+                    loan.Customer.Score = score;
+                }
+
+                ApproveOrRejectBaseOnScore(loan, scoreBeforeChange, score);
+            }
+
+            await _unitOfWork.CommitAsync();
+            return loan.State.ToString();
+        }
+
+        private static void ApproveOrRejectBaseOnScore(
+            Loan loan, int scoreBeforeChange, int score)
+        {
+            if (score > 59)
+            {
+                loan.State = LoanState.Approved;
+            }
+            else if (score < 60)
+            {
+                loan.State = LoanState.Rejected;
+                loan.Customer.Score = scoreBeforeChange;
+            }
+        }
+
+        private static int CahngeScoreBasedOnLoanToAssetRatio(
+            int score, decimal loanAmount, decimal asset)
+        {
+           
+
+            if (loanAmount < 0.5m * asset)
+            {
+                score += 20;
+            }
+            else if (loanAmount >= 0.5m *
+                asset && loanAmount <= 0.7m * asset)
+            {
+                score += 10;
+            }
+            
+            return score;
+        }
+
+        private static void StopIfLoanNotFound(Loan? loan)
+        {
+            if (loan == null)
+            {
+                throw new LoanNotFoundException();
+            }
         }
 
         private static void StopIfLoanTypeNotFound(LoanType? loanType)

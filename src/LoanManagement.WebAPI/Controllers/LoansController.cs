@@ -1,4 +1,5 @@
-﻿using LoanManagement.Services.Loans.Contracts;
+﻿using LoanManagement.Entities;
+using LoanManagement.Services.Loans.Contracts;
 using LoanManagement.Services.Loans.Contracts.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,12 @@ namespace LoanManagement.WebAPI.Controllers
         public async Task<List<GetAllLoanDto?>> GetAll()
         {
             return await _service.GetAll();
+        }
+
+        [HttpPatch("{id}/LoanCheck")]
+        public async Task<string> LoanCheck(int id)
+        {
+            return await _service.LoanCheck(id);
         }
     }
 }

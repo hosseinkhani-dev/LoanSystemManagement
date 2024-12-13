@@ -19,6 +19,14 @@ namespace LoanManagement.Persistance.EF.Loans
             await _context.Loans.AddAsync(loan);
         }
 
+        public async Task<Loan?> FindById(int id)
+        {
+            return await _context.Loans.
+                Include(x => x.Customer).
+                Include(x => x.LoanType)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<GetAllLoanDto?>> GetAll()
         {
             return await _context.Loans.

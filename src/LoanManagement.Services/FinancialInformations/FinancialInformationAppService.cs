@@ -58,8 +58,12 @@ namespace LoanManagement.Services.FinancialInformations
             int score = MinusScorOnDifferentSituations(
                 dto, customer!.Score, financialInformation);
 
-            customer!.Score += CalculateCustomerScore(
+            if(dto.Job != financialInformation!.Job &&
+                dto.MonthlyIncome != financialInformation.MonthlyIncome)
+            {
+                score += CalculateCustomerScore(
                dto.Job, dto.MonthlyIncome);
+            }
 
             customer!.Score = score;
             financialInformation!.MonthlyIncome = dto.MonthlyIncome;
@@ -70,7 +74,8 @@ namespace LoanManagement.Services.FinancialInformations
             await _unitOfWork.CommitAsync();
         }
 
-        private static void StopIdFinancialInformationNotFound(FinancialInformation? financialInformation)
+        private static void StopIdFinancialInformationNotFound(
+            FinancialInformation? financialInformation)
         {
             if (financialInformation == null)
             {
@@ -79,8 +84,32 @@ namespace LoanManagement.Services.FinancialInformations
             }
         }
 
+        private static int CalculateCustomerScore(
+          JobType job, decimal monthlyIncome)
+        {
+            int score = 0;
+            if (job == JobType.GovernmentJob)
+            {
+                score += 20;
+            }
+            if (job == JobType.FreelanceJob)
+            {
+                score += 10;
+            }
+            if (monthlyIncome > 10)
+            {
+                score += 20;
+            }
+            if (monthlyIncome < 11 && monthlyIncome > 6)
+            {
+                score += 10;
+            }
+            return score;
+        }
+
         private static int MinusScorOnDifferentSituations(
-            EditFinancialInformationDto dto,int score, FinancialInformation? financialInformation)
+            EditFinancialInformationDto dto,int score,
+            FinancialInformation? financialInformation)
         {
             JobType job = financialInformation.Job;
             decimal monthlyIncome = financialInformation.MonthlyIncome;
@@ -165,27 +194,6 @@ namespace LoanManagement.Services.FinancialInformations
             return financialInformation;
         }
 
-        private static int CalculateCustomerScore(
-           JobType job, decimal monthlyIncome)
-        {
-            int score = 0;
-            if (job == JobType.GovernmentJob)
-            {
-                score += 20;
-            }
-            if (job == JobType.FreelanceJob)
-            {
-                score += 10;
-            }
-            if (monthlyIncome > 10)
-            {
-                score += 20;
-            }
-            if (monthlyIncome < 11 && monthlyIncome > 6)
-            {
-                score += 10;
-            }
-            return score;
-        }
+       
     }
 }

@@ -1,4 +1,5 @@
-﻿using LoanManagement.Infrastructures.Applications;
+﻿using LoanManagement.Entities;
+using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Services.Loans.Contracts.DTOs;
 
 namespace LoanManagement.Services.Loans.Contracts
@@ -7,5 +8,6 @@ namespace LoanManagement.Services.Loans.Contracts
     {
         Task Add(AddLoanDto dto);
         Task<List<GetAllLoanDto?>> GetAll();
+        Task<string> LoanCheck(int id);
     }
 }

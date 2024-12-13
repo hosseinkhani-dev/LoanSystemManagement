@@ -15,5 +15,17 @@ namespace LoanManagement.Tests.Tools
                 MonthlyRepayment = Generator.GenerateDecimal()
             };
         }
+
+        public static LoanType CreateWithAmount(decimal amount)
+        {
+            return new LoanType
+            {
+                Name = Generator.GenerateString(),
+                Amount = amount,
+                RepaymentPeriod = 6,
+                InterestRate = 6 < 12 ? 0.15m : 0.20m,
+                MonthlyRepayment = Generator.GenerateDecimal()
+            };
+        }
     }
 }

@@ -3,10 +3,12 @@ using LoanManagement.Entities;
 using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Persistance.EF;
 using LoanManagement.Persistance.EF.Customers;
+using LoanManagement.Persistance.EF.FinancialInformations;
 using LoanManagement.Persistance.EF.Loans;
 using LoanManagement.Persistance.EF.LoanTypes;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Exceptions;
+using LoanManagement.Services.FinancialInformations.Contracts;
 using LoanManagement.Services.Loans;
 using LoanManagement.Services.Loans.Contracts;
 using LoanManagement.Services.Loans.Contracts.DTOs;
@@ -20,22 +22,27 @@ namespace LoanManagement.Services.Tests.Unit.Loans
     public class LoanServiceTests
     {
         private readonly LoanService _sut;
-        private readonly LoanRepository _loanRepository;
+        private readonly LoanRepository _repository;
         private readonly EFDbContext _context;
         private readonly UnitOfWork _unitOfWork;
         private readonly CustomerRepository _customerRepository;
         private readonly LoanTypeRepository _loanTypeRepository;
+        private readonly FinancialInformationRepository 
+            _finacialInformationRepository;
 
         public LoanServiceTests()
         {
             _context = new InMemoryDataBase().CreateDataContext<EFDbContext>();
             _unitOfWork = new EFUnitOfWork(_context);
-            _loanRepository = new EFLoanRepository(_context);
+            _repository = new EFLoanRepository(_context);
             _customerRepository = new EFCustomerRepository(_context);
             _loanTypeRepository = new EFLoanTypeRepository(_context);
+            _finacialInformationRepository = 
+                new EFFianancialInformationRepository(_context);
             _sut = new LoanAppService(
-                _loanRepository, _unitOfWork,
-                _customerRepository, _loanTypeRepository);
+                _repository, _unitOfWork,
+                _customerRepository, _loanTypeRepository, 
+                _finacialInformationRepository);
         }
 
         [Fact]
@@ -125,5 +132,114 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             expected?.State.Should().Be(loan.State.ToString());
         }
 
+        [Fact]
+        public async Task LoanCheck_approve_loan_if_score_is_obove_60()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(60, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateLoanType(
+                Generator.GenerateByte());
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+            Loan loan = LoanFactory.CreateLoan(
+                customer.Id, loanType.Id, LoanState.UnderReview);
+            await _context.Loans.AddAsync(loan);
+            await _context.SaveChangesAsync();
+
+            LoanState state = await _sut.LoanCheck(loan.Id);
+
+            state.Should().Be(LoanState.Approved);
+        }
+
+        [Fact]
+        public async Task LoanCheck_reject_loan_if_score_is_less_than_60()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateLoanType(
+                Generator.GenerateByte());
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+            Loan loan = LoanFactory.CreateLoan(
+                customer.Id, loanType.Id, LoanState.UnderReview);
+            await _context.Loans.AddAsync(loan);
+            await _context.SaveChangesAsync();
+
+            LoanState state = await _sut.LoanCheck(loan.Id);
+
+            state.Should().Be(LoanState.Rejected);
+        }
+
+        [Fact]
+        public async Task LoanCheck_up_score_to_20_if_loan_to_asset_ratio_less_than_50_percent_of_asset()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(40, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateWithAmount(10);
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+            FinancialInformation financialInformation =
+                FinancialInformationFactory.CreateWithAsset(
+                    customer.Id, 100);
+            await _context.FinancialInformations.
+                AddAsync(financialInformation);
+            Loan loan = LoanFactory.CreateLoan(
+                customer.Id, loanType.Id, LoanState.UnderReview);
+            await _context.Loans.AddAsync(loan);
+            await _context.SaveChangesAsync();
+
+            LoanState state = await _sut.LoanCheck(loan.Id);
+
+            customer.Score.Should().Be(60);
+            state.Should().Be(LoanState.Approved);
+        }
+
+        [Fact]
+        public async Task LoanCheck_up_score_to_10_if_loan_to_asset_ratio_less_than_70_percent_of_asset()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(50, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateWithAmount(60);
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+            FinancialInformation financialInformation =
+                FinancialInformationFactory.CreateWithAsset(
+                    customer.Id, 100);
+            await _context.FinancialInformations.
+                AddAsync(financialInformation);
+            Loan loan = LoanFactory.CreateLoan(
+                customer.Id, loanType.Id, LoanState.UnderReview);
+            await _context.Loans.AddAsync(loan);
+            await _context.SaveChangesAsync();
+
+            LoanState state = await _sut.LoanCheck(loan.Id);
+
+            customer.Score.Should().Be(60);
+            state.Should().Be(LoanState.Approved);
+        }
+
+        [Fact]
+        public async Task LoanCheckout_not_change_score_if_loan_rejected()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(10, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateWithAmount(60);
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+            FinancialInformation financialInformation =
+                FinancialInformationFactory.CreateWithAsset(
+                    customer.Id, 100);
+            await _context.FinancialInformations.
+                AddAsync(financialInformation);
+            Loan loan = LoanFactory.CreateLoan(
+                customer.Id, loanType.Id, LoanState.UnderReview);
+            await _context.Loans.AddAsync(loan);
+            await _context.SaveChangesAsync();
+
+           string state = await _sut.LoanCheck(loan.Id);
+
+            customer.Score.Should().Be(10);
+            state.Should().Be(LoanState.Rejected.ToString());
+        }
     }
 }
