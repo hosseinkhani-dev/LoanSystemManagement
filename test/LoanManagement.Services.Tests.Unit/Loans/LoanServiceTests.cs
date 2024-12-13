@@ -1,5 +1,4 @@
-﻿using Castle.Core.Resource;
-using FluentAssertions;
+﻿using FluentAssertions;
 using LoanManagement.Entities;
 using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Persistance.EF;
@@ -102,6 +101,28 @@ namespace LoanManagement.Services.Tests.Unit.Loans
 
             await expected.Should().
                 ThrowExactlyAsync<LoanTypeNotFoundException>();
+        }
+
+        [Fact]
+        public async Task GetAll_returns_all_loans_properly()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(0, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateLoanType(
+                Generator.GenerateByte());
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+            Loan loan = LoanFactory.CreateLoan(
+                customer.Id, loanType.Id, LoanState.UnderReview);
+            await _context.Loans.AddAsync(loan);
+            await _context.SaveChangesAsync();
+
+            List<GetAllLoanDto?> dtos = await _sut.GetAll();
+
+            var expected = dtos.Single();
+            expected?.CustomerId.Should().Be(customer.Id);
+            expected?.LoanTypeId.Should().Be(loanType.Id);
+            expected?.State.Should().Be(loan.State.ToString());
         }
 
     }

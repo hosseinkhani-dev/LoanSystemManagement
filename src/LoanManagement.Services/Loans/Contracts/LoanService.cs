@@ -6,5 +6,6 @@ namespace LoanManagement.Services.Loans.Contracts
     public interface LoanService : Service
     {
         Task Add(AddLoanDto dto);
+        Task<List<GetAllLoanDto?>> GetAll();
     }
 }

@@ -7,20 +7,16 @@
       "RelativeMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|solutionrelative:test\\loanmanagement.services.tests.unit\\loans\\loanservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|d:\\c#\\project\\loanmanagement\\test\\loanmanagement.services.tests.unit\\loantypes\\loantypeservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F59AE27B-9B33-405A-85B3-474B32D8EB0F}|test\\LoanManagement.Services.Tests.Unit\\LoanManagement.Services.Tests.Unit.csproj|solutionrelative:test\\loanmanagement.services.tests.unit\\loantypes\\loantypeservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8EC97C96-895A-44FF-BAAF-831BACDBF210}|src\\LoanManagement.Persistance.EF\\LoanManagement.Persistance.EF.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.persistance.ef\\loans\\efloanrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC97C96-895A-44FF-BAAF-831BACDBF210}|src\\LoanManagement.Persistance.EF\\LoanManagement.Persistance.EF.csproj|solutionrelative:src\\loanmanagement.persistance.ef\\loans\\efloanrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.services\\loantypes\\contracts\\dtos\\addloantypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|solutionrelative:src\\loanmanagement.services\\loantypes\\contracts\\dtos\\addloantypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.services\\loans\\loanappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|solutionrelative:src\\loanmanagement.services\\loans\\loanappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C4473A7-6E2B-4209-B97B-A7EA6645B46E}|LoanManagement.Test.Tools\\LoanManagement.Tests.Tools.csproj|d:\\c#\\project\\loanmanagement\\loanmanagement.test.tools\\loantypefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C4473A7-6E2B-4209-B97B-A7EA6645B46E}|LoanManagement.Test.Tools\\LoanManagement.Tests.Tools.csproj|solutionrelative:loanmanagement.test.tools\\loantypefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.entities\\loantype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4899E56-673D-45FB-BF77-5C0F4C7C1661}|src\\LoanManagement.Entities\\LoanManagement.Entities.csproj|solutionrelative:src\\loanmanagement.entities\\loantype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|d:\\c#\\project\\loanmanagement\\src\\loanmanagement.services\\loans\\contracts\\loanservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CB7EB90-95C4-4E87-AF51-B5EBCCD297CC}|src\\LoanManagement.Services\\LoanManagement.Services.csproj|solutionrelative:src\\loanmanagement.services\\loans\\contracts\\loanservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,58 +26,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LoanServiceTests.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
-              "RelativeDocumentMoniker": "test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
-              "RelativeToolTip": "test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAADwv0YAAAAQAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "EFLoanRepository.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Persistance.EF\\Loans\\EFLoanRepository.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Persistance.EF\\Loans\\EFLoanRepository.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Persistance.EF\\Loans\\EFLoanRepository.cs",
+              "RelativeToolTip": "src\\LoanManagement.Persistance.EF\\Loans\\EFLoanRepository.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAADwvxgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T08:20:45.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "LoanTypeFactory.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\LoanManagement.Test.Tools\\LoanTypeFactory.cs",
-              "RelativeDocumentMoniker": "LoanManagement.Test.Tools\\LoanTypeFactory.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\LoanManagement.Test.Tools\\LoanTypeFactory.cs",
-              "RelativeToolTip": "LoanManagement.Test.Tools\\LoanTypeFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T08:15:28.545Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoanType.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\LoanType.cs",
-              "RelativeDocumentMoniker": "src\\LoanManagement.Entities\\LoanType.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Entities\\LoanType.cs",
-              "RelativeToolTip": "src\\LoanManagement.Entities\\LoanType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T07:57:35.077Z",
+              "WhenOpened": "2024-12-13T10:55:56.93Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AddLoanTypeDto.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\LoanTypes\\Contracts\\DTOs\\AddLoanTypeDto.cs",
-              "RelativeDocumentMoniker": "src\\LoanManagement.Services\\LoanTypes\\Contracts\\DTOs\\AddLoanTypeDto.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\LoanTypes\\Contracts\\DTOs\\AddLoanTypeDto.cs",
-              "RelativeToolTip": "src\\LoanManagement.Services\\LoanTypes\\Contracts\\DTOs\\AddLoanTypeDto.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAUwBgAAAAuAAAAAAAAAA==",
+              "Title": "LoanAppService.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\Loans\\LoanAppService.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Services\\Loans\\LoanAppService.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\Loans\\LoanAppService.cs",
+              "RelativeToolTip": "src\\LoanManagement.Services\\Loans\\LoanAppService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAADwvzYAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T07:56:50.866Z",
+              "WhenOpened": "2024-12-13T10:54:05.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoanService.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\Loans\\Contracts\\LoanService.cs",
+              "RelativeDocumentMoniker": "src\\LoanManagement.Services\\Loans\\Contracts\\LoanService.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\src\\LoanManagement.Services\\Loans\\Contracts\\LoanService.cs",
+              "RelativeToolTip": "src\\LoanManagement.Services\\Loans\\Contracts\\LoanService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T10:53:51.7Z",
               "EditorCaption": ""
             },
             {
@@ -94,15 +77,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LoanTypeServiceTests.cs",
-              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\LoanTypes\\LoanTypeServiceTests.cs",
-              "RelativeDocumentMoniker": "test\\LoanManagement.Services.Tests.Unit\\LoanTypes\\LoanTypeServiceTests.cs",
-              "ToolTip": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\LoanTypes\\LoanTypeServiceTests.cs",
-              "RelativeToolTip": "test\\LoanManagement.Services.Tests.Unit\\LoanTypes\\LoanTypeServiceTests.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAADwv0gAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "LoanServiceTests.cs",
+              "DocumentMoniker": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
+              "RelativeDocumentMoniker": "test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
+              "ToolTip": "D:\\C#\\Project\\LoanManagement\\test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
+              "RelativeToolTip": "test\\LoanManagement.Services.Tests.Unit\\Loans\\LoanServiceTests.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAcwGkAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T07:50:22.3Z",
+              "WhenOpened": "2024-12-13T08:59:59.776Z",
               "EditorCaption": ""
             }
           ]

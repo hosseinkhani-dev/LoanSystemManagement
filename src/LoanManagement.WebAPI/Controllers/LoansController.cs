@@ -20,5 +20,11 @@ namespace LoanManagement.WebAPI.Controllers
         {
             await _service.Add(dto);
         }
+
+        [HttpGet]
+        public async Task<List<GetAllLoanDto?>> GetAll()
+        {
+            return await _service.GetAll();
+        }
     }
 }

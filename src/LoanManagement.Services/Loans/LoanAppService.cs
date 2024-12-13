@@ -50,6 +50,11 @@ namespace LoanManagement.Services.Loans
             await _unitOfWork.CommitAsync();
         }
 
+        public async Task<List<GetAllLoanDto?>> GetAll()
+        {
+            return await _repository.GetAll();
+        }
+
         private static void StopIfLoanTypeNotFound(LoanType? loanType)
         {
             if (loanType == null)
