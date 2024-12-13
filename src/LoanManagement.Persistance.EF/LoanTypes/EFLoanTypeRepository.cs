@@ -19,6 +19,12 @@ namespace LoanManagement.Persistance.EF.LoanTypes
             await _context.AddAsync(loanType);
         }
 
+        public async Task<LoanType?> FindById(int id)
+        {
+            return await _context.LoanTypes.
+                FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<GetAllLoanTypeDto>> GetAll()
         {
             return await _context.LoanTypes.
@@ -27,7 +33,7 @@ namespace LoanManagement.Persistance.EF.LoanTypes
                     Id = x.Id,
                     Name = x.Name,
                     Amount = x.Amount,
-                    InterestRate = x.InterestRate,
+                    InterestRate = x.InterestRate * 100,
                     MonthlyRepayment = x.MonthlyRepayment,
                     RepaymentPeriod = x.RepaymentPeriod,
                 }).ToListAsync();

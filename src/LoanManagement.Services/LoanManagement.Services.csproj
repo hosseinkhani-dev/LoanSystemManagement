@@ -11,4 +11,8 @@
     <ProjectReference Include="..\LoanManagement.Infrastructures\LoanManagement.Infrastructures.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Loans\Exceptions\" />
+  </ItemGroup>
+
 </Project>

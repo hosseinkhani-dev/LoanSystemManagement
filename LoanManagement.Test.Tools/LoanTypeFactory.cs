@@ -1,22 +1,17 @@
 ﻿using LoanManagement.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoanManagement.Tests.Tools
 {
     public static class LoanTypeFactory
     {
-        public static LoanType CreateLoanType()
+        public static LoanType CreateLoanType(byte repaymentPeriod)
         {
             return new LoanType
             {
                 Name = Generator.GenerateString(),
                 Amount = Generator.GenerateDecimal(),
-                InterestRate = Generator.GenerateDecimal(),
-                RepaymentPeriod = Generator.GenerateByte(),
+                RepaymentPeriod = repaymentPeriod,
+                InterestRate = repaymentPeriod < 12 ? 0.15m : 0.20m,
                 MonthlyRepayment = Generator.GenerateDecimal()
             };
         }

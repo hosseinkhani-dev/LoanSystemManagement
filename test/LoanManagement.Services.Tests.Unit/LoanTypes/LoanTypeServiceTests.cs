@@ -30,13 +30,13 @@ namespace LoanManagement.Services.Tests.Unit.LoanTypes
         [Fact]
         public async Task Add_adds_loan_type_properly()
         {
-            AddLoanTypeDto dto = CreateAddLoanTypeDto();
+            AddLoanTypeDto dto = CreateAddLoanTypeDto(12);
             await _sut.Add(dto);
 
             LoanType expected = await _context.LoanTypes.SingleAsync();
             expected.Name.Should().Be(dto.Name);
             expected.Amount.Should().Be(dto.Amount);
-            expected.InterestRate.Should().Be(dto.InterestRate);
+            expected.InterestRate.Should().Be(0.2m);
             expected.RepaymentPeriod.Should().Be(dto.RepaymentPeriod);
             expected.MonthlyRepayment.Should().Be(dto.MonthlyRepayment);
         }
@@ -44,7 +44,8 @@ namespace LoanManagement.Services.Tests.Unit.LoanTypes
         [Fact]
         public async Task AddFails_when_AmountAndInterestRateIsExistException()
         {
-            LoanType loanType = LoanTypeFactory.CreateLoanType();
+            LoanType loanType = LoanTypeFactory.CreateLoanType(
+                Generator.GenerateByte());
             await _context.LoanTypes.AddAsync(loanType);
             await _unitOfWork.CommitAsync();
 
@@ -52,7 +53,6 @@ namespace LoanManagement.Services.Tests.Unit.LoanTypes
             {
                 Name = loanType.Name,
                 Amount = loanType.Amount,
-                InterestRate = loanType.InterestRate,
                 RepaymentPeriod = loanType.RepaymentPeriod,
                 MonthlyRepayment = loanType.RepaymentPeriod
             };
@@ -65,10 +65,12 @@ namespace LoanManagement.Services.Tests.Unit.LoanTypes
         [Fact]
         public async Task GetAll_returns_all_LoanType_properly()
         {
-            LoanType firstLoanType = LoanTypeFactory.CreateLoanType();
+            LoanType firstLoanType = LoanTypeFactory.CreateLoanType(
+                Generator.GenerateByte());
             await _context.LoanTypes.AddAsync(firstLoanType);
             await _unitOfWork.CommitAsync();
-            LoanType secondLoanType = LoanTypeFactory.CreateLoanType();
+            LoanType secondLoanType = LoanTypeFactory.CreateLoanType(
+                Generator.GenerateByte());
             await _context.LoanTypes.AddAsync(secondLoanType);
             await _unitOfWork.CommitAsync();
 
@@ -77,13 +79,13 @@ namespace LoanManagement.Services.Tests.Unit.LoanTypes
             _context.LoanTypes.Should().HaveCount(2);
             expected.Should().HaveCount(2);
         }
-        private static AddLoanTypeDto CreateAddLoanTypeDto()
+        private static AddLoanTypeDto CreateAddLoanTypeDto(
+            byte repaymentPeriod)
         {
             return new AddLoanTypeDto
             {
                 Name = Generator.GenerateString(),
                 Amount = Generator.GenerateDecimal(),
-                InterestRate = Generator.GenerateDecimal(),
                 RepaymentPeriod = Generator.GenerateByte(),
                 MonthlyRepayment = Generator.GenerateDecimal()
             };
