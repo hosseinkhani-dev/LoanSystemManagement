@@ -146,9 +146,9 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             await _context.Loans.AddAsync(loan);
             await _context.SaveChangesAsync();
 
-            LoanState state = await _sut.LoanCheck(loan.Id);
+            string state = await _sut.LoanCheck(loan.Id);
 
-            state.Should().Be(LoanState.Approved);
+            state.Should().Be(LoanState.Approved.ToString());
         }
 
         [Fact]
@@ -165,9 +165,9 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             await _context.Loans.AddAsync(loan);
             await _context.SaveChangesAsync();
 
-            LoanState state = await _sut.LoanCheck(loan.Id);
+            string state = await _sut.LoanCheck(loan.Id);
 
-            state.Should().Be(LoanState.Rejected);
+            state.Should().Be(LoanState.Rejected.ToString());
         }
 
         [Fact]
@@ -188,10 +188,10 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             await _context.Loans.AddAsync(loan);
             await _context.SaveChangesAsync();
 
-            LoanState state = await _sut.LoanCheck(loan.Id);
+            string state = await _sut.LoanCheck(loan.Id);
 
             customer.Score.Should().Be(60);
-            state.Should().Be(LoanState.Approved);
+            state.Should().Be(LoanState.Approved.ToString());
         }
 
         [Fact]
@@ -212,10 +212,10 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             await _context.Loans.AddAsync(loan);
             await _context.SaveChangesAsync();
 
-            LoanState state = await _sut.LoanCheck(loan.Id);
+            string state = await _sut.LoanCheck(loan.Id);
 
             customer.Score.Should().Be(60);
-            state.Should().Be(LoanState.Approved);
+            state.Should().Be(LoanState.Approved.ToString());
         }
 
         [Fact]
