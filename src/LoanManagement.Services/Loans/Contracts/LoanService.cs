@@ -11,5 +11,7 @@ namespace LoanManagement.Services.Loans.Contracts
             GetAllActiveLoansReport();
         Task<List<GetAllLoanDto?>> GetAll();
         Task<string> LoanCheck(int id);
+        Task<GetTotalInterestAndPenaltyDto> GetTotalInterestAndPenalty();
+        Task<List<GetAllClosedLoanReportDto>> GetAllClosedReport();
     }
 }

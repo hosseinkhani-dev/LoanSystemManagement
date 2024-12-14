@@ -18,7 +18,7 @@ namespace LoanManagement.Persistance.EF.Repayments
         {
             return await _context.Repayments.
                 FirstOrDefaultAsync(x => x.Id == id);
-                
+
         }
 
         public async Task GenerateRepayments(Repayment repayment)
@@ -38,6 +38,22 @@ namespace LoanManagement.Persistance.EF.Repayments
                     DueDate = x.DueDate,
                 }).ToListAsync();
 
+        }
+
+        public async Task<List<GetAllHighRiskCustomersDto>>
+          GetAllHighRiskCustomers()
+        {
+            return await _context.Repayments
+            .Where(repayment => repayment.LatePenaltyCount > 0)
+            .GroupBy(repayment => new { repayment.Loan.CustomerId })
+            .Select(group => new GetAllHighRiskCustomersDto
+            {
+                CustomerId = group.Key.CustomerId,
+                TottalLateCount = group.Max(
+                    repayment => repayment.LatePenaltyCount)
+            })
+        .Where(dto => dto.TottalLateCount > 2)
+        .ToListAsync();
         }
     }
 }

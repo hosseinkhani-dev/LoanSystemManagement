@@ -234,5 +234,48 @@ namespace LoanManagement.Services.Tests.Unit.Repayments
             expectedRepayment.Loan.State.Should().Be(LoanState.Closed);
             expectedCustomer.Score.Should().Be(90);
         }
+
+        [Fact]
+        public async Task GetAllHighRiskCustomers_Should_Return_Customers_With_late_repayings_Loans()
+        {
+            // Arrange
+            Customer highRiskCustomer = CustomerFactory
+                .CreateCustomer(10, true);
+            await _context.Customers.AddAsync(highRiskCustomer);
+
+            LoanType loanType = LoanTypeFactory.CreateLoanType(10);
+            await _context.LoanTypes.AddAsync(loanType);
+            await _unitOfWork.CommitAsync();
+
+            Loan loan = LoanFactory.CreateLoan(
+                highRiskCustomer.Id, loanType.Id, LoanState.DelayInRepayment);
+            await _context.Loans.AddAsync(loan);
+            await _unitOfWork.CommitAsync();
+
+            Repayment repayment1 = new RepaymentBuilder(loan.Id)
+                .Amount(10m)
+                .DueDate(DateTime.Now.AddMonths(-2))
+                .IsRepaid(true)
+                .LatePenaltyCount(2)
+                .Build();
+            Repayment repayment2 = new RepaymentBuilder(loan.Id)
+                .Amount(10m)
+                .DueDate(DateTime.Now.AddMonths(-1))
+                .IsRepaid(true)
+                .LatePenaltyCount(3)
+                .Build();
+            await _context.Repayments.AddRangeAsync(repayment1, repayment2);
+            await _unitOfWork.CommitAsync();
+
+            // Act
+            List<GetAllHighRiskCustomersDto> result =
+                await _sut.GetAllHighRiskCustomers();
+
+            // Assert
+            result.Should().HaveCount(1);
+            var customerReport = result.Single();
+            customerReport.CustomerId.Should().Be(highRiskCustomer.Id);
+            customerReport.TottalLateCount.Should().Be(3);
+        }
     }
 }

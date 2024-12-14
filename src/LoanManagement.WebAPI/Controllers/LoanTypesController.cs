@@ -1,4 +1,5 @@
-﻿using LoanManagement.Services.LoanTypes.Contracts;
+﻿using LoanManagement.Services.Loans.Contracts.DTOs;
+using LoanManagement.Services.LoanTypes.Contracts;
 using LoanManagement.Services.LoanTypes.Contracts.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

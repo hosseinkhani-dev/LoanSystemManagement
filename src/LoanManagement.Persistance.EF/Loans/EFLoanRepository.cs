@@ -61,5 +61,50 @@ namespace LoanManagement.Persistance.EF.Loans
                      State = x.State.ToString()
                  }).ToListAsync();
         }
+
+        public async Task<GetTotalInterestAndPenaltyDto>
+            GetTotalInterestAndPenalty()
+        {
+            var result = await _context.Loans
+           .Include(loan => loan.Repayments)
+           .Include(loan => loan.LoanType)
+           .Select(loan => new
+           {
+               LastPenalty = loan.Repayments
+                  .OrderByDescending(repayment => repayment.PaymentDate)
+                  .Select(repayment => repayment.TotalLatePenalty)
+                  .FirstOrDefault(),
+               TotalInterest = (loan.LoanType.InterestRate /
+               100 * loan.LoanType.Amount)
+           })
+          .ToListAsync();
+
+            return new GetTotalInterestAndPenaltyDto
+            {
+                TotalLatePenalty = result.Sum(x => x.LastPenalty),
+                TotalInterest = result.Sum(x => x.TotalInterest) * 100
+            };
+        }
+
+        public async Task<List<GetAllClosedLoanReportDto>> GetAllClosedReport()
+        {
+            return await _context.Loans
+            .Include(loan => loan.Repayments)
+            .Include(loan => loan.LoanType)
+            .Where(loan => loan.State == LoanState.Closed)
+            .Select(loan => new GetAllClosedLoanReportDto
+            {
+             LoanId = loan.Id,
+             Amount = loan.LoanType.Amount,
+             RepaymentCount = loan.Repayments
+               .OrderByDescending(repayment => repayment.PaymentDate)
+               .Select(repayment => repayment.RepaymentCount)
+               .FirstOrDefault(),
+             TotalLatePenalty = loan.Repayments
+                .OrderByDescending(repayment => repayment.PaymentDate)
+                .Select(repayment => repayment.TotalLatePenalty)
+                .FirstOrDefault(),
+            }).ToListAsync();
+        }
     }
 }

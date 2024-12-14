@@ -86,6 +86,12 @@ namespace LoanManagement.Services.Repayments
             await _untiOfWork.CommitAsync();
         }
 
+        public async Task<List<GetAllHighRiskCustomersDto>>
+           GetAllHighRiskCustomers()
+        {
+            return await _repository.GetAllHighRiskCustomers();
+        }
+
         private static void StopIfRepaymentNotFound(Repayment? repayment)
         {
             if (repayment == null)

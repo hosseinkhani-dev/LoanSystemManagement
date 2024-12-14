@@ -1,6 +1,7 @@
 ﻿using LoanManagement.Infrastructures.Applications;
 using LoanManagement.Services.Customers.Contracts.DTOs;
 using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
+using LoanManagement.Services.Repayments.Contracts.DTOs;
 
 namespace LoanManagement.Services.Customers.Contracts
 {

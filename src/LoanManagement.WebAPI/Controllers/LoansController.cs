@@ -1,5 +1,4 @@
-﻿using LoanManagement.Entities;
-using LoanManagement.Services.Loans.Contracts;
+﻿using LoanManagement.Services.Loans.Contracts;
 using LoanManagement.Services.Loans.Contracts.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +38,20 @@ namespace LoanManagement.WebAPI.Controllers
             GetAllActiveLoansReport()
         {
             return await _service.GetAllActiveLoansReport();
+        }
+
+        [HttpGet("GetTotalInterestAndPenalty")]
+        public async Task<GetTotalInterestAndPenaltyDto>
+            GetTotalInterestAndPenalty()
+        {
+            return await _service.GetTotalInterestAndPenalty();
+        }
+
+        [HttpGet("GetAllClosedReport")]
+        public async Task<List<GetAllClosedLoanReportDto>>
+            GetAllClosedReport()
+        {
+            return await _service.GetAllClosedReport();
         }
     }
 }

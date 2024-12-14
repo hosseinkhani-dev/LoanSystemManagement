@@ -6,7 +6,6 @@ using LoanManagement.Persistance.EF.Customers;
 using LoanManagement.Persistance.EF.FinancialInformations;
 using LoanManagement.Persistance.EF.Loans;
 using LoanManagement.Persistance.EF.LoanTypes;
-using LoanManagement.Persistance.EF.Repayments;
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Exceptions;
 using LoanManagement.Services.FinancialInformations.Contracts;
@@ -15,7 +14,6 @@ using LoanManagement.Services.Loans.Contracts;
 using LoanManagement.Services.Loans.Contracts.DTOs;
 using LoanManagement.Services.LoanTypes.Contracts;
 using LoanManagement.Services.LoanTypes.Exceptions;
-using LoanManagement.Services.Repayments.Contracts;
 using LoanManagement.Tests.Tools;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +27,7 @@ namespace LoanManagement.Services.Tests.Unit.Loans
         private readonly UnitOfWork _unitOfWork;
         private readonly CustomerRepository _customerRepository;
         private readonly LoanTypeRepository _loanTypeRepository;
-        private readonly FinancialInformationRepository 
+        private readonly FinancialInformationRepository
             _finacialInformationRepository;
 
         public LoanServiceTests()
@@ -39,11 +37,11 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             _repository = new EFLoanRepository(_context);
             _customerRepository = new EFCustomerRepository(_context);
             _loanTypeRepository = new EFLoanTypeRepository(_context);
-            _finacialInformationRepository = 
+            _finacialInformationRepository =
                 new EFFianancialInformationRepository(_context);
             _sut = new LoanAppService(
                 _repository, _unitOfWork,
-                _customerRepository, _loanTypeRepository, 
+                _customerRepository, _loanTypeRepository,
                 _finacialInformationRepository);
         }
 
@@ -238,7 +236,7 @@ namespace LoanManagement.Services.Tests.Unit.Loans
             await _context.Loans.AddAsync(loan);
             await _context.SaveChangesAsync();
 
-           string state = await _sut.LoanCheck(loan.Id);
+            string state = await _sut.LoanCheck(loan.Id);
 
             customer.Score.Should().Be(10);
             state.Should().Be(LoanState.Rejected.ToString());
@@ -296,35 +294,134 @@ namespace LoanManagement.Services.Tests.Unit.Loans
                .IsRepaid(true)
                .Build();
             Repayment thirdRepayment = new RepaymentBuilder(secondLoan.Id)
-              .Amount(secondLoanType.MonthlyRepayment)
-              .DueDate(DateTime.Now.AddDays(1))
-              .IsFullyRepaid(false)
-              .IsRepaid(false)
-              .Build();
+               .Amount(secondLoanType.MonthlyRepayment)
+               .DueDate(DateTime.Now.AddDays(1))
+               .IsFullyRepaid(false)
+               .IsRepaid(false)
+               .Build();
             await _context.Repayments.AddRangeAsync(
                 firstRepayment, secondRepayment, thirdRepayment);
             await _unitOfWork.CommitAsync();
 
-            List<GetAllLoanActiveReportDto> result = 
+            List<GetAllLoanActiveReportDto> result =
                 await _sut.GetAllActiveLoansReport();
-           
+
             result.Should().HaveCount(2);
 
             var firstLoanReport = result.Single(
                 x => x.LoanId == firstLoan.Id);
             firstLoanReport.LoanState.Should()
                 .Be(LoanState.Repaying.ToString());
-           firstLoanReport!.TotalRepaid.Should()
-                .Be(firstRepayment.TotalRepaid); 
-            firstLoanReport.RemainingRepayments.Should().Be(0); 
+            firstLoanReport!.TotalRepaid.Should()
+                 .Be(firstRepayment.TotalRepaid);
+            firstLoanReport.RemainingRepayments.Should().Be(0);
 
             var secondLoanReport = result.Single(
                 x => x.LoanId == secondLoan.Id);
             secondLoanReport.LoanState.Should()
                 .Be(LoanState.DelayInRepayment.ToString());
             secondLoanReport!.TotalRepaid.Should()
-                .Be(secondRepayment.TotalRepaid); 
+                .Be(secondRepayment.TotalRepaid);
             secondLoanReport.RemainingRepayments.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task GetTotalInterestAndPenalty_ReturnsCorrectValues()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(10, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType firstLoanType = new LoanTypeBuilder()
+             .WithAmount(100)
+             .WithRepaymentPeriod(6)
+             .WithInterestRate(0.8m)
+             .WithName("second")
+             .WithMonthlyRepayment(2.8m)
+             .Build();
+            LoanType secondLoanType = new LoanTypeBuilder()
+             .WithAmount(100)
+             .WithRepaymentPeriod(6)
+             .WithInterestRate(0.2m)
+             .WithName("second")
+             .WithMonthlyRepayment(2.8m)
+             .Build();
+            await _context.LoanTypes.AddRangeAsync(
+                firstLoanType, secondLoanType);
+            await _unitOfWork.CommitAsync();
+
+            Loan firstLoan = LoanFactory.CreateLoan(
+                    customer.Id, firstLoanType.Id, LoanState.DelayInRepayment);
+            Loan secondLoan = LoanFactory.CreateLoan(
+                  customer.Id, secondLoanType.Id, LoanState.DelayInRepayment);
+            await _context.Loans.AddRangeAsync(firstLoan, secondLoan);
+            await _unitOfWork.CommitAsync();
+
+            Repayment firstRepayment = new RepaymentBuilder(firstLoan.Id)
+                .TotalLatePenalty(40)
+                .IsFullyRepaid(false)
+                .IsRepaid(true)
+                .Build();
+            Repayment secondRepayment = new RepaymentBuilder(secondLoan.Id)
+                .TotalLatePenalty(30)
+                .IsFullyRepaid(false)
+                .IsRepaid(true)
+                .Build();
+            await _context.Repayments.AddRangeAsync(
+               firstRepayment, secondRepayment);
+            await _unitOfWork.CommitAsync();
+
+            GetTotalInterestAndPenaltyDto result = await _sut
+                .GetTotalInterestAndPenalty();
+
+            result.TotalLatePenalty.Should().Be(70m);
+            result.TotalInterest.Should().Be(100m);
+        }
+
+        [Fact]
+        public async Task GetAllClosedReport_returns_all_closed_loans()
+        {
+            Customer customer = CustomerFactory.CreateCustomer(10, true);
+            await _context.Customers.AddAsync(customer);
+            LoanType loanType = LoanTypeFactory.CreateWithAmount(60);
+            await _context.LoanTypes.AddAsync(loanType);
+            await _context.SaveChangesAsync();
+
+            Loan firstLoan = LoanFactory.CreateLoan(
+                   customer.Id, loanType.Id, LoanState.Closed);
+            Loan secondLoan = LoanFactory.CreateLoan(
+                   customer.Id, loanType.Id, LoanState.Closed);
+            await _context.Loans.AddRangeAsync(
+                firstLoan, secondLoan);
+            await _unitOfWork.CommitAsync();
+
+            Repayment firstRepayment = new RepaymentBuilder(firstLoan.Id)
+              .TotalLatePenalty(40)
+              .IsFullyRepaid(true)
+              .IsRepaid(true)
+              .Build();
+            Repayment secondRepayment = new RepaymentBuilder(secondLoan.Id)
+                .TotalLatePenalty(30)
+                .IsFullyRepaid(true)
+                .IsRepaid(true)
+                .Build();
+            await _context.Repayments.AddRangeAsync(
+               firstRepayment, secondRepayment);
+            await _unitOfWork.CommitAsync();
+
+            List<GetAllClosedLoanReportDto> expected =
+                await _sut.GetAllClosedReport();
+
+            expected.Should().HaveCount(2);
+            var firstLoanReport = expected.Single(
+               x => x.LoanId == firstLoan.Id);
+            firstLoanReport.LoanId.Should()
+                .Be(firstLoan.Id);
+            firstLoanReport.Amount.Should().Be(loanType.Amount);
+            firstLoanReport.RepaymentCount.Should()
+                .Be(firstRepayment.RepaymentCount);
+            firstLoanReport.TotalLatePenalty.Should()
+                .Be(firstRepayment.TotalLatePenalty);
+
         }
     }
 }
+

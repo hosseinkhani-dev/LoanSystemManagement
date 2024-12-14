@@ -2,6 +2,7 @@
 using LoanManagement.Services.Customers.Contracts;
 using LoanManagement.Services.Customers.Contracts.DTOs;
 using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
+using LoanManagement.Services.Repayments.Contracts.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanManagement.Persistance.EF.Customers

@@ -101,6 +101,17 @@ namespace LoanManagement.Services.Loans
             return await _repository.GetAllActiveLoansReport();
         }
 
+        public async Task<GetTotalInterestAndPenaltyDto> GetTotalInterestAndPenalty()
+        {
+            return await _repository.GetTotalInterestAndPenalty();
+        }
+
+        public async Task<List<GetAllClosedLoanReportDto>>
+            GetAllClosedReport()
+        {
+            return await _repository.GetAllClosedReport();
+        }
+
         private static void ApproveOrRejectBaseOnScore(
             Loan loan, int scoreBeforeChange, int score)
         {

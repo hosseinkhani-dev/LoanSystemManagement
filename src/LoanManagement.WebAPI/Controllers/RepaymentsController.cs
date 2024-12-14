@@ -34,5 +34,12 @@ namespace LoanManagement.WebAPI.Controllers
             await _service.PayRepayment(id);
         }
 
+        [HttpGet("GetAllHighRiskCustomers")]
+        public async Task<List<GetAllHighRiskCustomersDto>>
+            GetAllHighRiskCustomers()
+        {
+            return await _service.GetAllHighRiskCustomers();
+        }
+
     }
 }

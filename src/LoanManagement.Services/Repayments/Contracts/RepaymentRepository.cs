@@ -9,5 +9,6 @@ namespace LoanManagement.Services.Repayments.Contracts
         Task<Repayment?> FindById(int id);
         Task GenerateRepayments(Repayment repayment);
         Task<List<GetAllUnpaidRepaymentsDto?>> GetAllUnpaid(int loanId);
+        Task<List<GetAllHighRiskCustomersDto>> GetAllHighRiskCustomers();
     }
 }

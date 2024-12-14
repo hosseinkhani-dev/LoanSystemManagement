@@ -11,6 +11,7 @@ using LoanManagement.Services.Customers.Exceptions;
 using LoanManagement.Services.FinancialInformations.Contracts;
 using LoanManagement.Services.FinancialInformations.Contracts.DTOs;
 using LoanManagement.Services.FinancialInformations.Exceptions;
+using LoanManagement.Services.Repayments.Contracts.DTOs;
 using LoanManagement.Tests.Tools;
 using Microsoft.EntityFrameworkCore;
 using Moq;
