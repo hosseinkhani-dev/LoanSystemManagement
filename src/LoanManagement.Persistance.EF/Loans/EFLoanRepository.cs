@@ -28,18 +28,38 @@ namespace LoanManagement.Persistance.EF.Loans
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<List<GetAllLoanActiveReportDto>>
+            GetAllActiveLoansReport()
+        {
+            return await _context.Loans
+        .Where(loan => loan.State == LoanState.Repaying ||
+         loan.State == LoanState.DelayInRepayment)
+        .Select(loan => new GetAllLoanActiveReportDto
+        {
+            LoanId = loan.Id,
+            LoanState = loan.State.ToString(),
+            TotalRepaid = loan.Repayments
+            .Where(x => x.IsRepaid && x.LoanId == loan.Id)
+            .OrderByDescending(r => r.PaymentDate)
+            .Select(r => r.TotalRepaid)
+            .FirstOrDefault(),
+            RemainingRepayments = loan.Repayments
+            .Count(x => x.IsRepaid == false && x.LoanId == loan.Id),
+        }).ToListAsync();
+        }
+
         public async Task<List<GetAllLoanDto?>> GetAll()
         {
             return await _context.Loans.
-                Select(x => x == null ? null : 
+                Select(x => x == null ? null :
                  new GetAllLoanDto
-                {
-                    Id = x.Id,
-                    CustomerId = x.CustomerId,
-                    LoanTypeId = x.LoanTypeId,
-                    LoanStartDate = x.LoanStartDate,
-                    State = x.State.ToString()
-                }).ToListAsync();
+                 {
+                     Id = x.Id,
+                     CustomerId = x.CustomerId,
+                     LoanTypeId = x.LoanTypeId,
+                     LoanStartDate = x.LoanStartDate,
+                     State = x.State.ToString()
+                 }).ToListAsync();
         }
     }
 }

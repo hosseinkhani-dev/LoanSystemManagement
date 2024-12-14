@@ -33,5 +33,12 @@ namespace LoanManagement.WebAPI.Controllers
         {
             return await _service.LoanCheck(id);
         }
+
+        [HttpGet("GetAllActiveLoansReport")]
+        public async Task<List<GetAllLoanActiveReportDto>>
+            GetAllActiveLoansReport()
+        {
+            return await _service.GetAllActiveLoansReport();
+        }
     }
 }

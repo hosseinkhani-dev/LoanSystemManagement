@@ -69,10 +69,12 @@ namespace LoanManagement.Services.Repayments
                 repayment.TotalLatePenalty += penalty;
                 repayment.LatePenaltyCount += 1;
                 customer.Score -= 5;
+                loan.State = LoanState.DelayInRepayment;
             }
             if (repayment.RepaymentCount >= loan.LoanType.RepaymentPeriod)
             {
                 repayment.IsFullyRepaid = true;
+                loan.State = LoanState.Closed;
             }
 
             if (repayment.IsFullyRepaid == true &&
@@ -125,6 +127,7 @@ namespace LoanManagement.Services.Repayments
                 await _repository.GenerateRepayments(repayment);
                 await _untiOfWork.CommitAsync();
             }
+            loan.State = LoanState.Repaying;
         }
 
         private static void StopIfRepaymentAlreadyExist(Loan? loan)

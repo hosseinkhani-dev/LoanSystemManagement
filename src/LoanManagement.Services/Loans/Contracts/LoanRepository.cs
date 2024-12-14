@@ -8,6 +8,8 @@ namespace LoanManagement.Services.Loans.Contracts
     {
         Task Add(Loan loan);
         Task<Loan?> FindById(int id);
+        Task<List<GetAllLoanActiveReportDto>> 
+            GetAllActiveLoansReport();
         Task<List<GetAllLoanDto?>> GetAll();
     }
 }

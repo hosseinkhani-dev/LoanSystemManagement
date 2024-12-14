@@ -192,6 +192,8 @@ namespace LoanManagement.Services.Tests.Unit.Repayments
             expectedRepayment.TotalLatePenalty.Should()
                 .Be(repayment.Amount * 0.02m);
             expectedRepayment.LatePenaltyCount.Should().Be(1);
+            expectedRepayment.Loan.State.Should()
+                .Be(LoanState.DelayInRepayment);
             expectedCustomer.Score.Should().Be(55);
             expectedRepayment.IsFullyRepaid.Should().BeFalse();
         }
@@ -229,6 +231,7 @@ namespace LoanManagement.Services.Tests.Unit.Repayments
             expectedRepayment.IsFullyRepaid.Should().BeTrue();
             expectedRepayment.IsRepaid.Should().BeTrue();
             expectedRepayment.RepaymentCount.Should().Be(1);
+            expectedRepayment.Loan.State.Should().Be(LoanState.Closed);
             expectedCustomer.Score.Should().Be(90);
         }
     }

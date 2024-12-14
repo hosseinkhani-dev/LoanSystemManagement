@@ -95,6 +95,12 @@ namespace LoanManagement.Services.Loans
             return loan.State.ToString();
         }
 
+        public async Task<List<GetAllLoanActiveReportDto>>
+            GetAllActiveLoansReport()
+        {
+            return await _repository.GetAllActiveLoansReport();
+        }
+
         private static void ApproveOrRejectBaseOnScore(
             Loan loan, int scoreBeforeChange, int score)
         {
@@ -150,7 +156,5 @@ namespace LoanManagement.Services.Loans
                 throw new CustomerNotFoundException();
             }
         }
-
-
     }
 }
